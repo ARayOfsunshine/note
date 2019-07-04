@@ -1,0 +1,48 @@
+webpack3.x版本；
+webpack加载资源/打包文件:
+       安装 npm install webpack -g (真实项目当中不推荐)
+       打包js文件：进入打包的文件夹里面，命令：webpack 要打包的文件名称 打包后的文件名称  
+       打包多个js文件:通过module.exports导出到，在要被打包的文件require()映入。打包工具会打包模块依赖的文件。
+
+       打包css文件。安装loader加载器：安装:npm install css-loader style-loader;
+       将css文件引入到js文件当中：require('!style-loader!css-loader!./css文件路径');
+       
+
+       通过webpack配置文件简化代码输出：配置文件面名称：webpack.config.js;
+       配置文件内容：
+module.exports = {
+    entry: './js/pack.js',
+    output: {
+        path: __dirname + '/js',
+        filename: 'bunder.js'
+    },
+    module: {
+        loaders: [{
+            test: /\.css$/,
+            loader: 'style-loader!css-loader'
+        }]
+    }
+}
+
+打包部署到服务端：安装：npm install webpack-dev-server --save-dev
+                  修改package.json里面的script:{start:webpack-dev-server --entry 打包文件路径 --output 打包完成文件路径,bulid:webpack}
+                  命令：npm run bulid：打包文件。npm start:启动运行端口。
+
+
+webpack4.x版本;
+          npm init -y
+          项目当中安装:npm install webpack webpack-cli -D   (本地安装在项目当中)
+          webpack配置文件 webpack.config.js 
+module.exports = {
+    entry: './js/pack.js',(入口所在文件)
+    output: {
+        path: __dirname + '/js',（出口文件）
+        filename: 'bunder.js'（出口文件名）
+    },
+    module: {（相关模块加载器）
+        rules: [{
+            test: /\.css$/,
+            loader: 'style-loader!css-loader'
+        }]
+    }
+}                    

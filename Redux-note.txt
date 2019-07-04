@@ -1,0 +1,61 @@
+Redux:redux是在开发大型应用，应用非常复杂，一个组件随时想要获取某个组件的状态时，要与服务器大量的交互数据时，view从多个来源获取数据时。就可以考虑使用Redux。redux是存储可以理解为存储整个应用的状态管理仓库；
+Redux 的设计思想很简单:1，Web 应用是一个状态机，视图与状态是一一对应的。
+                       2，所有的状态，保存在一个对象里面。
+要使用Redux就要使用redux模块：npm install redux --save ;引入使用：import createStore from 'redux';
+
+Store：Store 就是保存数据的地方；const stroe = createStore(fn);
+
+State：state对象包含所有数据；如果想得到某个时点的数据，就要对 Store 生成快照。这种时点的数据集合，就叫做 State。当前时刻的 State，可以通过store.getState()拿到。 const state = store.getState();
+
+Action:State 的变化，会导致 View 的变化。但是，用户接触不到 State，只能接触到 View。所以，State 的变化必须是 View 导致的。Action 就是 View 发出的通知，表示 State 应该要发生变化了。Action 是一个对象。其中的type属性是必须的const action = {type: 'ADD_TODO',...}
+
+store.dispatch()：store.dispatch()是 View 发出 Action 的唯一方法。
+
+Reducer:Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。实际应用中，Reducer 函数不用像上面这样手动调用，store.dispatch方法会触发 Reducer 的自动执行。为此，Store 需要知道 Reducer 函数，做法就是在生成 Store 的时候，将 Reducer 传入createStore方法。
+
+store.subscribe()：Store 允许使用store.subscribe方法设置监听函数，一旦 State 发生变化，就自动执行这个函数。显然，只要把 View 的更新函数（对于 React 项目，就是组件的render方法或setState方法）放入listen，就会实现 View 的自动渲染。
+
+
+
+
+
+
+在React中使用redux和react-redux：引入关键模块import {createStore,applyMiddleware,combineReaducers} from 'redux';import {Provider} from 'react-redux';中间件：import {thunk} from 'react-thunk';
+
+Provider应该在根组件外包裹所有要使用stroe的组件，这样被包裹的组件就拿到了stroe;
+
+<Provider stroe={stroe}>
+各种组件。。。
+</Provider>
+
+
+使用中间件主要是为了能使action能够异步传给reducer处理。
+const stroe=createStroe(reducer,initialState,applyMiddleware(...[thunk]));
+
+
+合并多个reducer
+const reducer=combineReducers({post:postMessage(state,action)})
+
+一个action的处理过程
+postMessage=(state,action)=>{
+switch(action.type){
+case:FETCH_POST
+return{ ...state,action.payload}
+}
+}
+
+在要使用store的组件当中建立连接：connect(mapStateToProps,mapDispatchToProps)(连接的组件名)
+mapStateToProps:为一个函数，用订阅store的变化。然后state对象与组件props发生映射关系；执行后返回一个对象，该对象与组件Prps对象的键值对一一对应。
+mapDispatchToProps：用来建立组件的参数到store.dispatch方法的映射。也就是说，它定义了哪些用户的操作应该当作 Action，传给 Store。它可以是一个函数，也可以是一个对象。
+如果mapDispatchToProps是一个函数，会得到dispatch和ownProps（容器组件的props对象）两个参数。mapDispatchToProps作为函数，应该返回一个对象，该对象的每个键值对都是一个映射。
+如果mapDispatchToProps是一个对象，它的每个键名也是对应 组件的同名参数，键值应该是一个函数，会被当作 Action creator ，返回的 Action 会由 Redux 自动发出。
+
+
+
+总结：React使用redux的思路：
+1，让组件拿到stroe：先让要使用store的组件获取stroe;直接在这些组件外包裹provider组件。provider组件的属性stroe的属性值设置为创建的stroe;
+2，组件与store建立连接，组件可以获取store的state以及可以发送action给stroe：创建stroe;使用connect连接组件；处理组件要从连接（connect）当中获取stroe的state一一对应组件props。然后再处理组件要发送的action。
+
+
+
+

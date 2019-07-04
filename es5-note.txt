@@ -1,0 +1,49 @@
+对象的属性getter,setter属性，以及属性的特性：
+1：对象的属性具有四个属性特性，分别为，value(值),writable(可写性),enumerable(可枚举性),configurable(可配置性);
+2：对象具有存取器(getter,setter)的情况下，则具有4个特性的是:取(get),写入(set),可枚举性和可配置性。
+3：对象通过Object.defineProperty()方法能够改变对象属性的特性，通过Object.getOwnPropertyDescriptor()方法能获取对象的属性的描述符。通过这个两个方法能够复制对象的属性，还能把对象的属性特性也一并复制。
+Object.defineProperty(Object.prototype,'extend',{
+writable:true,
+enumerable:false,
+configurable:true,
+value:function(o){
+var name=Object.getOwnPropertyNames(o);
+for(var i =0;i<name.length;i++){
+if(name[i] in this){continue}
+var descriptor=Object.getOwnPropertyDescriptor(o,name[i]);
+Object.defineProperty(this,'name[i]',descriptor);
+}
+}
+})
+
+sessionStorage与localStorage:
+(1)4:sessionStorage与localStorage都是window对象上定义的两个属性，这两个属性都代表同一个Storage对象。Storage对象在使用上和javascript对象的没什么区别：设置对象的属性为字符串值，随后浏览器会将该值存储起来。
+(2)sessionStorage和localStorage的区别在于存储的作用域和存储的有效期不同：数据可以存储多长时间以及谁拥有访问权。
+(3)sessionStorage和localStorage存储的是字符串类型的数据类型，想要存储和获取不同的数据类型，应该在存储时和获取时手动进行编码和解码。
+(4)sessionStorage和localStorage的作用域都是同源策略，即通协议，主机名，端口号来确定的。sessionStorage的存储时间是会话级别的，即最顶层的窗口或者浏览器关闭。数据就会被删除。而localStorage的存储时间是永久性的，除非用户主动删除，否则会一直存在。
+(5))sessionStorage和localStorage的API都大致相同，通过setItem()方法来设置要存储的名字和值。通过getItem()方法来过去存储的值。通过removeItem()方法来移除存储的名字。clear()方法清除所有设置的存储类容。key()方法传入数值能遍历出对应的名字。
+
+cookie:
+(1)cookie是指web浏览器存储的少量数据。cookie最早是设计为服务端使用，cookie作为http协议的一种扩展实现它。cookie数据会自动在web浏览器和web服务器之间传输的，因此服务器脚本能够读，写存储在客户端的cookie值。在客户端操作cookie值，是通过document对象的cookie属性实现的。
+(2)客户端操作cookie是通过特殊格式的字符串形式读写document对象的cookie属性来完成的。每个cookie的作用域以及有效时间都可以通过cookie的属性来指定的。这些属性也是通过在同一个cookie属性上以特殊的字符串形式来设定的。
+(3)检测cookie是否启用可以用navigator.cookieEnable属性来检测，值为boolean类型，true表示当前cookie启用，false就是禁用。这个属性不是标准属性。因此根据情况使用。
+(4)cookie的有效期：cookie默认的有效期是很短暂的，它只能维持在web浏览器的会话期间，一旦用户关闭了浏览器，cookie数据就会丢失了。cookie的有效期与seesionStorage的有效期是有所不同的，sessionStorage的有效期是一个会话窗口的关闭或者浏览的关闭，而cookie是浏览器的关闭。想要设置cookie的有效期，可以设置max-age或者expires属性。
+(5)cookie的作用域：cookie的作用域时通过文档源和文档路径来确定的，该作用域可通过cookie的path和domain属性来配置的。默认情况下，cookie和它创建的web页面有关，即同一个页面及和该web页面同目录或者子目录可见。
+(6)cookie属性secure是一个布尔值属性，用来表明cookie值以何种形式通过网络传递。cookie默认是以不安全的形式传递的(http)。而cookie被标识为安全的，就只能当浏览器和服务器通过https或者其他安全的协议连接时才传递给它。
+(7)cookie的局限性：cookie是有数量限制和存储的大小限制的。数量根据浏览器而定，一般为不超过20个至50个，大小一般不超过4KB。
+
+
+canvas：
+(1)canvas是在文档中创建一个画板，通过canvas获取的上下文对象来对画板进行绘画图形。
+(2)获取canvas的上下文对象方法为:getContext()方法。参数传入字符串2d。
+(3)上下文对象的API方法：1，beginPath()方法开始调用一条新路径。2，moveTo()方法开始定义一条新的子路径。3，lineTo()方法将该点与新的点通过直线连接起来。4，stroke()方法将路径上的勾勒出来。5，fill()方法填充路径闭合的区域。6，closePath()方法将子路径的起点和终点连接起来。
+(4)storke()方法和fill()方法非常重要的两点：1，这个两个方法都是作用在当前路径上的所有子路径。2，storke()方法和fill()方法不更改当前路径。
+(5)设置上下文对象的fillStyle(),storkeStyle(),lineWidth()方法，这些都是图形属性。分别制定了调用fill()和storke()时采用的颜色以及调用storke()方法绘制线段的宽度。
+(6)canvas当中使用图片，使用new Image()构造函数创建在image.onload之后加入图片。使用drawImage()方法。drawImage()为两参数时：drawImage('图片对象',x,y),为四参数时：drawImage('图片对象',x,y,width,height);为八个参数时：drawImage('图片对象',cx,cy,cw,ch,x,y,width,height)
+(7)设置文字：fillText()或者strokeText();方法。设置文字的属性样式有font(文字的样式，文字大小，文字的字体),textAlign(文字水平的对其方式,值有start,end,left,center,right等),textBaseline(文本基线，垂直的对其方式,值有top,middle,bottom等),
+(7)设置水平的渐变颜色。createLinearGradient(initx,inity,endx,endy);添加渐变的颜色。addColorStop(0~1,color);设置径向的渐变颜色。createRadialGradent()
+(8)添加阴影：shadowColor设置阴影颜色。shadowOffsetX设置阴影的水平偏移量。shadowOffsetY设置阴影的垂直偏移量。shadowBlur()设置阴影的模糊程度。
+(9)图形变换：所有的变换都是针对坐标系的不是针对于图形的。rotate()围绕原点旋转图像angle弧度。scale(scaleX,scaleY)缩放图像。translate(x,y)将坐标原点移动到(x,y)。执行这个转换之后，坐标(0,0)会变成之前由(x,y)表示的点。
+(10)保存状态和获取状态：save()方法保存当前的状态。restore()方法获取之前保存的状态。对于保存图形变换之前的坐标轴状态非常有用。
+(11)模式：模式就是重复的图像，可以用来填充或者描边图形。创建一个模式使用createPattern(),第一个参数为img对象，可以为canvas或者video对象。第二个参数为repeat,repeat-x,repeat-y,no-repeat等。获取图像数据：getImageData(x,y,w,h);
+

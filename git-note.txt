@@ -1,0 +1,41 @@
+简介：git是分布式的版本库控制系统；相对于集中式的版本库控制系统如:svn，它的最大好处是不需要互联网也可以完成对版本库的控制;本地就可以创建版本库控制系统；
+
+创建版本库控制：git init ;
+添加要控制的文件：git add 文件名；
+提交文件给版本库控制：git commit 文件名；(一般带-m参数；然后进行描述；表示对提交的备注)
+
+查看修改状态：git status;
+
+工作区与暂存区：工作区就是你要git版本控制的文件；工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。
+Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
+git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+
+
+查看最近到最远的的提交日志：git log;
+回退版本：git reset --hard HEAD^（一个^表示回退前一个版本）;或者git reset --hard 版本ID;
+
+从旧版本回退到的新的版本：git reflog 命令用来记录每一次的命令;命令：git reflog;
+                          回退：git reset --hard 版本ID；
+
+撤销修改：
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
+
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退，不过前提是没有推送到远程库。
+
+删除文件：git rm <filename>
+          git commit -m 
+
+分支：git checkout -b dev;其实是做了两个命令：git branch dev （创建dev分支）;git checkout dev（切换到dev分支）; 
+      git branch 列举所有分支。
+合并分支，首先需要切换到master分支：命令：git checkout master;合并指定分支到当前分支,命令：git merge dev 
+删除分支：git branch -d dev
+
+github为git提供了很好的远程托管仓库。关联一个远程仓库使用命令：git remote add origin github的仓库地址；
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+克隆远程仓库的代码：使用命令:git clone github的仓库地址；
+
+注意在github上创建一个特殊的仓库名字 [username].github.io能够将仓库做为一个特殊的服务器来使用。
