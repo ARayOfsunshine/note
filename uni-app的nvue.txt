@@ -1,0 +1,20 @@
+使用nuve的场景，长列表滑动等；
+提供两个编译模式，weex和uni-app；默认weex,这是为了向下兼容；切换在manifest.json下配置；{"app-plus": {       "nvueCompiler":"uni-app" //是否启用 uni-app 模式    }      }
+
+weex模式下：使用weex组件开发，遵循weex规范，缺点；不能跨端开发，比如不能编译成小程序运行；仅在app端运行；
+
+uni-app模式下：能够运行使用uni-app组件以及生命周期函数，并且编译运行在app端以小程序端和H5端。
+
+
+在nvue下的css注意点：1，只有text标签可以设置字体大小，字体颜色
+                     2，布局不能使用百分比
+                     3，只能使用 class 选择器
+                     4，border 不支持简写
+                     5，background 不支持简写
+                     6，.nvue 页面的布局排列方向默认为竖排（column），如需改变布局方向，可以在 manifest.json -> app-plus -> nvue -> flex-direction 节点下修改，仅在 uni-app 模式下生效。
+                     7，nvue的uni-app编译模式下，App.vue 中的样式，会编译到每个 nvue文件。非uni-app编译模式不会。对于共享样式，如果有不合法属性控制台会给出警告，可以通过条件编译屏蔽 App 中的警告。
+
+nvue编译为H5、小程序时注意
+nvue页面编译为H5、小程序时，会做一件css默认值对齐的工作。
+因为weex布局只支持flex，并且默认flex方向是垂直。而H5和小程序端，使用web渲染，web默认不是flex，并且设置display:flex后，它的flex方向默认是水平的。
+所以nvue编译为H5、小程序时，会自动把页面默认布局设为flex、方向为垂直。当然开发者手动设置后会覆盖默认设置。

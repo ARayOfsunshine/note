@@ -2,7 +2,7 @@ webpack3.x版本；
 webpack加载资源/打包文件:
        安装 npm install webpack -g (真实项目当中不推荐)
        打包js文件：进入打包的文件夹里面，命令：webpack 要打包的文件名称 打包后的文件名称  
-       打包多个js文件:通过module.exports导出到，在要被打包的文件require()映入。打包工具会打包模块依赖的文件。
+       打包多个js文件:通过module.exports导出到，在要被打包的文件require()引入。打包工具会打包模块依赖的文件。
 
        打包css文件。安装loader加载器：安装:npm install css-loader style-loader;
        将css文件引入到js文件当中：require('!style-loader!css-loader!./css文件路径');
@@ -25,9 +25,7 @@ module.exports = {
 }
 
 打包部署到服务端：安装：npm install webpack-dev-server --save-dev
-                  修改package.json里面的script:{start:webpack-dev-server --entry 打包文件路径 --output 打包完成文件路径,bulid:webpack}
-                  命令：npm run bulid：打包文件。npm start:启动运行端口。
-
+                  修改package.json里面的script:{start:webpack-dev-server --open}
 
 webpack4.x版本;
           npm init -y
@@ -44,5 +42,29 @@ module.exports = {
             test: /\.css$/,
             loader: 'style-loader!css-loader'
         }]
-    }
-}                    
+    },
+    plugins:[]
+}
+
+关于打包优化：
+
+webpack 4.x扩张了这个功能！ 
+tree shaking:使用export,import等ecma2015导出模块函数或功能时，未在打包文件当中引用以及使用，这时候在输出文件为了减少打包后无用的代码进行的代码压缩以及性能优化。
+特点：使用 ES2015 模块语法（即 import 和 export）。
+      在项目 package.json 文件中，添加一个 "sideEffects" 入口。//添加模块有可能的副作用
+      引入一个能够删除未引用代码(dead code)的压缩工具(minifier)（例如 UglifyJSPlugin）。
+
+代码分离：有三种常用的代码分离方法：
+          1,入口起点：使用 entry 配置手动地分离代码。
+          2,防止重复：使用 CommonsChunkPlugin 去重和分离 chunk。//webpack4.0 版本删除了改模块，改用了splitChunkPlugin
+          3,动态导入：通过模块的内联函数调用来分离代码。import(//*webpackChunkName:"loadash"*/"loadash").then()  // import函数返回promis。
+
+懒加载：在动态导入的情况下，动过用户交互的方式触发动态导入函数import()第一次加载所需的模块。完成对按需加载的实现。
+
+缓存：浏览器自带的长期缓存机制，在首次加载资源时会有缓存机制，文件的名字没有发生改变则认为没用更新文件，继续使用缓存当中的资源。webpack通过出口资源ouput.filename配置[chunkhash]。
+[chunkhash能够通过内容的改变而随之一同变化文件名的hash值]，然而对于文件打包的情况并非想象那样，没有发生改变内容改变的的文件打包后名字也一同改变了。这个是由于打包过程中以module.id为依据打包，而module.id在打包过程中是按照解析顺序进行增量的。要避免此情况出现使用插件HashedModuleIdsPlugin，推荐用于生产环境构建。
+
+
+shimming:使用开箱即用的插件 new webpack.ProvidePlugin({_:loadash})，这里告诉webpack通过访问一个变量来获取到 package 包。如果 webpack 知道这个变量在某个模块中被使用了，那么 webpack 将在最终 bundle 中引入我们给定的 package。
+
+	                   

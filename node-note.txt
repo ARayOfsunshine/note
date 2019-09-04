@@ -1,0 +1,109 @@
+node的特点：运行在chrom v8 runtime；优秀的i/o流。以及出色的高并发处理。
+
+//File System文件系统文件    
+var fs=require("fs");       
+增删改查文件夹：fs.readdir(path,option,callback);fs.mkdir(path,option,callback);fs.rename(oldPath,newPath,callback);fs.rmdir(path,callback);//同步方法名后面加Sync;
+增删改查文件：fs.readFile(path,option,callback);fs.writeFile(file,data,callback);fs.appendFile(path,data,callback);fs.unlink(path,callback);//同步方法名后面加Sync;
+判断是否是文件使用fs.stat类；
+fs.stat("文件名字",(err,stats)=>{stats.isFile():返回值boolean })
+
+
+
+第三方模块：nodemailer：向用户发送验证邮箱验证码功能!
+"use strict";
+const nodemailer = require("nodemailer");
+async function main() {
+	//创建发送方的信息
+	let transporter = nodemailer.createTransport({
+		host: "smtp.qq.com",
+		port: 465,
+		secure: true, // true for 465, false for other ports
+		auth: {
+			user: "1115949034@qq.com", //发送方的地址
+			pass: ""   // 发送方的smpt码。在qq邮箱页面获得;
+		}
+	});
+	let senderEmail = "1115949034@qq.com",
+		receivers = "1115949034@qq.com",
+		codeNum = 6666;
+
+	let userObj = {
+		from: '"请注意查收" <' + senderEmail + '>',
+		to: receivers,
+		subject: "标题无懈可击",
+		// text: "Hello world?", 
+		html: "<p>你的验证码为：</p><b>" + codeNum + "</b>"
+	}
+	transporter.sendMail(userObj, (err, data) => {
+		if (err) {
+			console.log("发送邮箱失败！")
+		} else {
+			console.log("发送邮箱成功！");
+		}
+	});
+}
+main().catch(console.error);
+
+
+//nodemon第三方库，简化node编译启动项，自动更新。npm install nodemon -g; 启动命令更改为nodemon;
+
+
+express框架使用：
+安装npm install express --save;
+const express =require('express');
+let app=express();
+
+//设置get请求的path，函数参数1处理请求体，参数2处理响应体;
+app.get('pathname',callback(req,res));
+
+//设置端口号
+app.listen(port,callback)
+
+//post请求的请求体不能直接解析，需要配合第三方模块body-parser进行解析；
+const bodyParser=require('body-parser');
+
+//设置设置用接收体为application/json格式;
+app.use(bodyParser.json());
+
+//设置设置用接收体为x-www-form-ulrencode格式;
+app.use(boayParser.urlencode({extended:false}));
+
+app.post('pathname',function(req,res){req.body,res.send("post 请求提交成功！")});
+
+
+//express router用来管理多个接口的分区；方便维护；
+let router=express.Router();
+router.get(path,callback);
+
+//满足path会分发给router来管理请求；
+app.use(path,router);
+
+
+//使用中间件来配置用户请求的token;防止用户直接请求服务器api；参数1为要开始拦截的path,参数2为回调函数，其中next被执行后，后面的api才会被开放执行；
+app.use("/",function(req,res,next){
+let{token}= req.query;
+    token?res.send("token");next();:res.send("缺少token参数");
+})
+
+//开启静态目录：指定用户访问域名时直接指定目录里面的内容;
+app.use(express.static(绝对路径));
+
+//express框架使用身份验证的方法有session+cookie;
+引入cookie-parser模块，以及express-session模块，然后进行配置信息。在请求接口时req.session才会有相关信息。把req.session信息删除;直接使用方法req.session.destroy();
+以及JWT身份验证：引入jsonwebtoken模块，token加密分为对称加密方法以及非对称加密方法。
+const jwt=require('jsonwebtoken');
+let screat='随便乱的字符串' ///私钥；
+let payload={user:123,pw:456} //参与加密的验证信息；可以作为参数传递给它；
+let token=jwt.sign(payload,screat);//生成一个加密后的字符串。
+jwt.verify(token,screat,(err,data)=>{})//对加密后的字符串进行解密，根据回调判断传入的安全验证信息是否正确，错误会触发err;
+jwt验证的过期时间验证方法：可以在发送参数时添加当时的时间，以及添加一个希望过期的时间，然后加密，然后后端通过解密后，通过现在的时间比较解密出来的时间（当时的时间+过期时间=比较现在的时间）进行对比；
+
+//第三方模块api生成文档 apidoc;
+
+//获取用户传输的图片信息，第三方模块 multer;
+npm install multer;
+const multer =require('multer');
+let upload=multer({storage, fileFilter, limits }).single/array/fields("key")
+upload(req,file,(err)=>){}
+
+//nodejs WebSocket 常用的第三方库有ws;以及socket.io。socket.io兼容性比较好。

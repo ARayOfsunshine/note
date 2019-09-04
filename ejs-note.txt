@@ -1,0 +1,19 @@
+node express当中使用ejs;
+安装：npm install ejs --save;
+app.set("views","filepath");//设置express以什么路径的文件使用模板引擎；
+app.set("view engine","ejs")//设置express使用模板引擎；
+在请求到来是设置返回的动态模板；app.get("/",(req,res)=>{ res.render("文件名称"，数据对象)     })
+
+ejs的模板的标签含义：
+<% '脚本' 标签，用于流程控制，无输出。
+<%_ 删除其前面的空格符
+<%= 输出数据到模板（输出是转义 HTML 标签）
+<%- 输出非转义的数据到模板
+<%# 注释标签，不执行、不输出内容 
+<%% 输出字符串 '<%'
+%> 一般结束标签
+-%> 删除紧随其后的换行符
+_%> 将结束标签后面的空格符删除
+
+include 指令将相对于模板路径中的模板片段包含进来。(<%-) 用于 include 指令，避免对输出的 HTML 代码做转义处理。
+<%- include("filename.ejs",data)%>

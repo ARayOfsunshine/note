@@ -1,0 +1,16 @@
+下载安装，配置环境变量。
+命令：mongod启动数据库；mongo连接数据库；show dbs 显示所有数据库；
+创建数据库：use database_name 如果数据库不存在，则创建数据库，否则切换到指定数据库。bd查看当前数据名称；
+删除数据库：db.dropDatabase();删除当前数据库
+创建集合：db.createCollection(collection_name); 删除集合：db.collection_name.drop();如果要查看已有集合，可以使用 show collections 或 show tables 命令：
+
+
+插入文档：db.COLLECTION_NAME.insert(document);
+
+查看添加的文档：db.COLLECTION_NAME.find();
+
+更新文档：db.COLLECTION_NAME.update(query,update,upsert,multi,writeConcern );query : update的查询条件，类似sql update查询内where后面的。update : update的对象和一些更新的操作符（如$,$inc...）等，也可以理解为sql update查询内set后面的;upsert : 可选，这个参数的意思是，如果不存在update的记录，是否插入objNew,true为插入，默认是false，不插入;multi : 可选，mongodb 默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。writeConcern :可选，抛出异常的级别。
+
+替换原有文档:db.COLLECTION_NAME.save(document,writeConcern);
+
+删除文档：db.CONLEECTION_NAME.remove(query,{justOne,writeConcern });query :（可选）删除的文档的条件。justOne : （可选）如果设为 true 或 1，则只删除一个文档，如果不设置该参数，或使用默认值 false，则删除所有匹配条件的文档。writeConcern :（可选）抛出异常的级别。

@@ -1,0 +1,28 @@
+vue-cli2.x版本：
+#项目初始化
+1:搭建官方命令行脚手架  //npm install -g vue-cli
+2:初始化项目 //vue init webpack my-project
+3:进入项目   //cd my-project
+4:安装依赖   // npm install
+5:运行项目   //npn run dev
+
+#项目目录结构
+index.html  //项目根视图
+postcsssrc.js //postcss配置文件
+static //静态文件目录
+
+
+
+
+vue-cli3.x版本:安装:npm install -g @vue/cli
+           创建项目：vue create projectName
+           启动项目:npm run serve
+           安装插件:vue add pluginName 
+          
+1：在项目当中有.vuerc文件。里面放有创建项目的预设。（.vuerc文件是隐藏文件，需要打开显示隐藏文件。）
+2：在项目当中设置环境变量：在项目根文件当中创建.env（在所有的环境中被载入）文件。可以设定特定环境变量（开发环境用：.env.development ）（生产环境用：.env.production ）
+环境变量文件当中固定的格式为：VUE_APP_（环境变量名字）=值；
+    访问环境变量中的变量值：process.env.VUE_APP_（环境变量名字）;环境变量的值取决于当前的运行环境。
+
+3:单独的运行.vue文件。注意需要安装相应依赖。安装依赖:npm install -g @vue/cli-service-global;运行单独vue文件：vue serve xxx.vue;
+         

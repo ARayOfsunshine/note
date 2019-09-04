@@ -1,0 +1,53 @@
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。在组件与组件之间完成通信通常都是通过父子通信，但是在同级组件或随时都要获取组件之间的数据状态时，vueX就非常有用了；登录状态记录，数值的共享，主要是组件之间的数据能够共享。
+安装 npm install vuex --save;
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex);
+
+const moduleA={
+state:{},
+mutations:{},
+getters:{},
+actions:{}
+}
+
+const moduleB={
+state:{},
+mutations:{},
+getters:{},
+actions:{}
+}
+
+使用 module.exports=new Vuex.Store({
+state:{
+
+},
+mutations:{
+
+},
+getters:{
+
+},
+actions:{
+
+},
+
+modules:{
+a:moduleA,
+b:moduleB
+}
+})
+Vuex状态存储是响应式的，从 store 实例中读取状态最简单的方法就是在计算属性中返回某个状态，这样只要Vuex状态发生改变计算属性就能够重新计算值。
+Vuex 通过 store 选项，提供了一种机制将状态从根组件“注入”到每一个子组件中：new Vue({store})
+
+state:数据都是存储在Vuex当中的state属性：调用Vuex里面的存储的数据时，this.$store.state.数据名；当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用 mapState 辅助函数帮助我们生成计算属性；mapState({}or[]);mapState返回一个对象，当当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 mapState 传一个字符串数组。
+
+getters:类似于Vuex的的计算属性；会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。调用Vuex的getters时使用this.store.getters.数据名;辅助函数mapGetters();
+
+mutations:更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件;不能直接调用一个 mutation handler。这个选项更像是事件注册。组件使用时使用this.$store.comit(事件名，payload);mutation 必须是同步函数!因为devtools 都需要捕捉到前一状态和后一状态的快照，因为当 mutation 触发的时候，回调函数还没有被调用，devtools 不知道什么时候回调函数实际上被调用——实质上任何在回调函数中进行的状态的改变都是不可追踪的。辅助函数mapMutations()
+
+actions:Action 提交的是 mutation，而不是直接变更状态。Action 可以包含任意异步操作。使用时this.$store.dispatch(mutations.data,payload);辅助函数分发mapActions();action通常是异步的，分发一般通过promise 以及async函数完成继发关系；
+
+modules:由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。为了解决以上问题，Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块。使用时this.$store.state.a //moduleA 的状态
+
+

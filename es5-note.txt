@@ -23,6 +23,7 @@ sessionStorage与localStorage:
 (4)sessionStorage和localStorage的作用域都是同源策略，即通协议，主机名，端口号来确定的。sessionStorage的存储时间是会话级别的，即最顶层的窗口或者浏览器关闭。数据就会被删除。而localStorage的存储时间是永久性的，除非用户主动删除，否则会一直存在。
 (5))sessionStorage和localStorage的API都大致相同，通过setItem()方法来设置要存储的名字和值。通过getItem()方法来过去存储的值。通过removeItem()方法来移除存储的名字。clear()方法清除所有设置的存储类容。key()方法传入数值能遍历出对应的名字。
 
+
 cookie:
 (1)cookie是指web浏览器存储的少量数据。cookie最早是设计为服务端使用，cookie作为http协议的一种扩展实现它。cookie数据会自动在web浏览器和web服务器之间传输的，因此服务器脚本能够读，写存储在客户端的cookie值。在客户端操作cookie值，是通过document对象的cookie属性实现的。
 (2)客户端操作cookie是通过特殊格式的字符串形式读写document对象的cookie属性来完成的。每个cookie的作用域以及有效时间都可以通过cookie的属性来指定的。这些属性也是通过在同一个cookie属性上以特殊的字符串形式来设定的。
@@ -47,3 +48,4 @@ canvas：
 (10)保存状态和获取状态：save()方法保存当前的状态。restore()方法获取之前保存的状态。对于保存图形变换之前的坐标轴状态非常有用。
 (11)模式：模式就是重复的图像，可以用来填充或者描边图形。创建一个模式使用createPattern(),第一个参数为img对象，可以为canvas或者video对象。第二个参数为repeat,repeat-x,repeat-y,no-repeat等。获取图像数据：getImageData(x,y,w,h);
 
+bind：

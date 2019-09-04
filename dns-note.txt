@@ -1,0 +1,4 @@
+DNS就是用于解析网站域名获取网站真正的ip地址。
+DNS是通过分级查询获取真正的ip地址的。
+一个网站的域名可以分为：host.sld.tld.root;对应www.baidu.com.root;
+hots=www,second level domain=.baidu,top level domain=.com
