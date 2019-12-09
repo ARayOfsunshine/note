@@ -7,4 +7,16 @@
 3:使用worker：var worker=new Worker();Worker是个构造函数，主线程worker构造函数里面可以传入两个参数。第一个参数是必须的，即worker线程需要处理的文件。第二个参数是可选的配置对象，可以指定 type、credentials、name 三个属性。
 4:主线程调用worker.postMessage()方法，向 Worker 发消息。它可以是各种数据类型，包括二进制数据。worker.onmessage指定监听函数，接收子线程发回来的消息。Worker 完成任务以后，主线程就可以把它关掉。worker.terminate();方法
 5:Worker 线程内部有一个监听函数，监听message事件。在worker线程中，全局对象为:self;或用this指向。用onmessage监听主线程发送过来的消息。postMessage()发送消息给主线程。close()用于在 Worker 内部关闭自身。Worker 内部如果要加载其他脚本，有一个专门的方法importScripts()。
+6:主线线程可以监听worker线程的错误，使用worker.onerror=function(event){};或 worker.addEventListener('error',function(event){});同时，worker线程可以监听内部的错误error事件。
+
+
+主线程与worker线程的通信：
+主线程与 Worker 之间的通信内容，可以是文本，也可以是对象。需要注意的是，这种通信是拷贝关系，即是传值而不是传址，Worker 对通信内容的修改，不会影响到主线程。
+如果要直接转移数据的控制权，就要使用下面的写法。
+// Transferable Objects 格式
+worker.postMessage(arrayBuffer, [arrayBuffer]);
+
+// 例子
+var ab = new ArrayBuffer(1);
+worker.postMessage(ab, [ab];
 

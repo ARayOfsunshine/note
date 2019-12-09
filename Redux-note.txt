@@ -20,7 +20,7 @@ store.subscribe()£ºStore ÔÊĞíÊ¹ÓÃstore.subscribe·½·¨ÉèÖÃ¼àÌıº¯Êı£¬Ò»µ© State ·¢É
 
 
 
-ÔÚReactÖĞÊ¹ÓÃreduxºÍreact-redux£ºÒıÈë¹Ø¼üÄ£¿éimport {createStore,applyMiddleware,combineReaducers} from 'redux';import {Provider} from 'react-redux';ÖĞ¼ä¼ş£ºimport {thunk} from 'react-thunk';
+ÔÚReactÖĞÊ¹ÓÃreduxºÍreact-redux£ºÒıÈë¹Ø¼üÄ£¿éimport {createStore,applyMiddleware,combineReaducers} from 'redux';import {Provider} from 'react-redux';ÖĞ¼ä¼ş£ºimport thunk from 'redux-thunk';
 
 ProviderÓ¦¸ÃÔÚ¸ù×é¼şÍâ°ü¹üËùÓĞÒªÊ¹ÓÃstroeµÄ×é¼ş£¬ÕâÑù±»°ü¹üµÄ×é¼ş¾ÍÄÃµ½ÁËstroe;
 
@@ -30,7 +30,7 @@ ProviderÓ¦¸ÃÔÚ¸ù×é¼şÍâ°ü¹üËùÓĞÒªÊ¹ÓÃstroeµÄ×é¼ş£¬ÕâÑù±»°ü¹üµÄ×é¼ş¾ÍÄÃµ½ÁËstroe;
 
 
 Ê¹ÓÃÖĞ¼ä¼şÖ÷ÒªÊÇÎªÁËÄÜÊ¹actionÄÜ¹»Òì²½´«¸øreducer´¦Àí¡£
-const stroe=createStroe(reducer,initialState,applyMiddleware(...[thunk]));
+const stroe=createStroe(reducer,initialState,applyMiddleware(thunk));
 
 
 ºÏ²¢¶à¸öreducer

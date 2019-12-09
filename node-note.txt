@@ -107,3 +107,7 @@ let upload=multer({storage, fileFilter, limits }).single/array/fields("key")
 upload(req,file,(err)=>){}
 
 //nodejs WebSocket 常用的第三方库有ws;以及socket.io。socket.io兼容性比较好。
+
+//学习nodejs就是学习前端工程化的东西。
+
+//nvm模块：能管理不同的nodejs版本环境，对不同项目的node环境可以使用不同的版本环境。

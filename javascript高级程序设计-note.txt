@@ -1,0 +1,130 @@
+对象的属性问题：
+对象的属性分为“数据属性”以及“访问器属性”；在对象里面以get 或 set 定义的函数就称为对象的访问器属性；访问器属性定义为一个或两个与属性同名的函数，这个函数定义没有使用function关键字，而是使用get或set，也没有使用冒号将属性名和函数体分开，但函数体的结束和下一个方法之间有逗号隔开。
+当程序查询访问器的属性值时，JavaScript代用getter方法（无参数），这个方法的返回值就是该属性存取表达式的值。当程序设置一个访问器属性值时，JavaScript调用setter方法，将赋值表达式右侧的值当作参数传入setter。从某种意义上来说，这个方法负责设置属性值，可以忽略该方法的返回值。
+
+1：对象的数据属性具有四个属性特性，分别为，value(值),writable(可写性),enumerable(可枚举性),configurable(可配置性)；
+[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为访问器属性。像前面例子中那样直接在对象上定义的属性，它们的这个特性默认值为 true。
+[[Enumerable]]：表示能否通过 for-in 循环返回属性。像前面例子中那样直接在对象上定义的属性，它们的这个特性默认值为 true。
+[[Writable]]：表示能否修改属性的值。像前面例子中那样直接在对象上定义的属性，它们的这个特性默认值为 true。
+[[Value]]：包含这个属性的数据值。读取属性值的时候，从这个位置读；写入属性值的时候，把新值保存在这个位置。这个特性的默认值为 undefined。
+
+注意：在调用 Object.defineProperty()方法时，如果不指定，configurable、enumerable 和writable 特性的默认值都是 false。
+
+2：对象的访问器属性则具有4个特性的是:取(get),写入(set),可枚举性和可配置性。
+[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为true。
+[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这个特性的默认值为 true。
+[[Get]]：在读取属性时调用的函数。默认值为 undefined。
+[[Set]]：在写入属性时调用的函数。默认值为 undefined。
+
+注意：访问器属性不能直接定义，必须使用 Object.defineProperty()来定义。
+
+3：对象通过Object.defineProperty()方法能够改变对象属性的特性，通过Object.getOwnPropertyDescriptor()方法能获取对象的属性的描述符。通过这个两个方法能够复制对象的属性，还能把对象的属性特性也一并复制。
+
+
+Object.defineProperty(Object.prototype,'extend',{
+writable:true,
+enumerable:false,
+configurable:true,
+value:function(o){
+var name=Object.getOwnPropertyNames(o);
+for(var i =0;i<name.length;i++){
+if(name[i] in this){continue}
+var descriptor=Object.getOwnPropertyDescriptor(o,name[i]);
+Object.defineProperty(this,'name[i]',descriptor);
+}
+}
+})
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+创建实例对象的几种方式：
+(1)工厂模式：这种模式抽象了创建具体对象的过程。funciton(name,age,job){var o =new Object();o.name=name;o.age=age;o.job=job;reutrn o};工厂模式虽然解决了创建多个相似对象的问题，但却没有解决对象识别的问题。
+(2)构造函数模式：function Person(name,age,job){this.name=name;this.age=job;this.job=job;};不足处：没有显式地创建对象;直接将属性和方法赋给了 this 对象；没有 return 语句。
+var person1=new Person(name,age,job);new 操作符。以这种方式调用构造函数实际上会经历以下 4个步骤：
+1, 创建一个新对象；
+2, 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象）；
+3, 执行构造函数中的代码（为这个新对象添加属性）；
+4, 返回新对象。
+
+(2)原型模式：每个函数都有一个 prototype（原型）属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。
+无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个 prototype属性，这个属性指向函数的原型对象。function Person(){} Preson.prototype指向原型对象。
+var person1=new Person();person1对象里面有个内部对象[[prototype]],在chrome,firefox,safari等浏览器中以__proto__的形式表现。这个属性指向原型对象(Person.prototype)。它与构造函数没有直接的关系。(保存着原型对象的指针)
+
+注意：原型对象里面进行修修改都能及时反映给实例对象（无论是在实例化对象前或者是实例化对象之后都能及时反映），是原型的动态特征。而对于原型的重写就需要特别注意了，如果在实例化之后重写了原型对象，就能等于将构造函数的原型对象重写，就是切断了初始的原型对象，而实例化的对象是最初始的原型对象。实例对象与构造函数没有联系，他们只是指向的同一原型对象而已。
+
+(3)组合使用构造函数模式和原型模式：构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。这种构造函数与原型混成的模式，是目前在 ECMAScript 中使用最广泛、认同度最高的一种创建自定义类型的方法。
+
+(4)动态原型模式：把所有信息都封装在了构造函数中，而通过在构造函数中初始化原型（仅在必要的情况下），又保持了同时使用构造函数和原型的优点。换句话说，可以通过检查某个应该存在的方法是否有效，来决定是否需要初始化原型
+
+(5)寄生构造函数模式：这种模式的基本思想是创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后再返回新创建的对象。这跟工厂模式很像，区别就是使用new操作符实例对象，并明确的return返回构造函数内创建的对象。
+
+(6)稳妥构造函数模式:新创建对象的实例方法不引用 this；不使用 new 操作符调用构造函数。稳妥构造函数return一个稳妥对象，该对象只能通过特定的方法访问其数据成员。
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+对象实例的继承几种方式：
+(1)原型链：即本质是通过实例化对象的构造函数的原型对象重写完成的，注意的是重写了实例对象的原型对象的constructor会被重写，需要特别注意，必要时重新指向为实例化对想的构造函数。问题是不能向继承的构造函数传递参数，而且继承的构造函数属性是引用值的问题，会影响到实例化出来的对象。
+
+(2)借用构造函数：即在实例化对象的构造函数当中使用call或者apple方法借用要继承对象的构造函数。每当实例化对象时会执行一份拷贝过来的构造函数，优点是能够给继承的构造函数传递参数，但是缺点也明显，就是继承的构造函数都要写在函数内，而写在继承构造函数的原型对象上是无法继承的。
+
+(3)组合继承:即将原型链和借用构造函数的技术组合到一块，从而发挥二者之长的一种继承模式。使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。
+
+(4)原型式继承：funciton(o) object{funciton F(){};F.prototype=o;reutrn new F();}ECMAScript 5 通过新增 Object.create()方法规范化了原型式继承。
+
+(5)寄生式继承：寄生式继承的思路与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真地是它做了所有工作一样返回对象。
+
+(6)寄生组合式继承：通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。funciton inheritPrototype(subType,superType){let prototype=Object.create(superType.prototype) prototype.constructor=subType;subType.prototype=prototype};实际解决了组合继承父类构造函数会被调用两次的问题。
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sessionStorage与localStorage:
+(1)4:sessionStorage与localStorage都是window对象上定义的两个属性，这两个属性都代表同一个Storage对象。Storage对象在使用上和javascript对象的没什么区别：设置对象的属性为字符串值，随后浏览器会将该值存储起来。
+(2)sessionStorage和localStorage的区别在于存储的作用域和存储的有效期不同：数据可以存储多长时间以及谁拥有访问权。
+(3)sessionStorage和localStorage存储的是字符串类型的数据类型，想要存储和获取不同的数据类型，应该在存储时和获取时手动进行编码和解码。
+(4)sessionStorage和localStorage的作用域都是同源策略，即通信协议，主机名，端口号来确定的。sessionStorage的存储时间是会话级别的，即最顶层的窗口或者浏览器关闭。数据就会被删除。而localStorage的存储时间是永久性的，除非用户主动删除，否则会一直存在。(5))sessionStorage和localStorage的API都大致相同，通过setItem()方法来设置要存储的名字和值。通过getItem()方法来过去存储的值。通过removeItem()方法来移除存储的名字。clear()方法清除所有设置的存储类容。key()方法传入数值能遍历出对应的名字。
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//cookie本地测试有火狐浏览器的内核支持，谷歌内核浏览器不支持本地测试。
+cookie:
+(1)cookie是指web浏览器存储的少量数据。cookie最早是设计为服务端使用，cookie作为http协议的一种扩展实现它。cookie数据会自动在web浏览器和web服务器之间传输的，因此服务器脚本能够读，写存储在客户端的cookie值。在客户端操作cookie值，是通过document对象的cookie属性实现的。
+(2)客户端操作cookie是通过特殊格式的字符串形式读写document对象的cookie属性来完成的。每个cookie的作用域以及有效时间都可以通过cookie的属性来指定的。这些属性也是通过在同一个cookie属性上以特殊的字符串形式来设定的。
+(3)检测cookie是否启用可以用navigator.cookieEnable属性来检测，值为boolean类型，true表示当前cookie启用，false就是禁用。这个属性不是标准属性。因此根据情况使用。
+(4)cookie的有效期：cookie默认的有效期是很短暂的，它只能维持在web浏览器的会话期间，一旦用户关闭了浏览器，cookie数据就会丢失了。cookie的有效期与seesionStorage
+的有效期是有所不同的，sessionStorage的有效期是一个会话窗口的关闭或者浏览的关闭，而cookie是浏览器的关闭。想要设置cookie的有效期，可以设置max-age或者expires属性。
+(5)cookie的作用域：cookie的作用域时通过文档源和文档路径来确定的，该作用域可通过cookie的path和domain属性来配置的。默认情况下，cookie和它创建的web页面有关，即同一个页面及和该web页面同目录或者子目录可见。
+(6)cookie属性secure是一个布尔值属性，用来表明cookie值以何种形式通过网络传递。cookie默认是以不安全的形式传递的(http)。而cookie被标识为安全的，就只能当浏览器和服务器通过https或者其他安全的协议连接时才传递给它。
+(7)cookie的局限性：cookie是有数量限制和存储的大小限制的。数量根据浏览器而定，一般为不超过20个至50个，大小一般不超过4KB。
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+canvas：
+(1)canvas是在文档中创建一个画板，通过canvas获取的上下文对象来对画板进行绘画图形。
+
+(2)获取canvas的上下文对象方法为:getContext()方法。参数传入字符串2d，在画布上绘制的图片可以使用实例var imgUrl=context.toDataURL("image/png")。获取图像url;
+绘制形状的方法有：fillRect(x,y,w,h);strokeRect(x,y,w,h);clearRect(x,y,w,h);注意的是strokeRect()方法绘制的是矩形的外部线条，有lineWidth的值大小控制，lineCap 属性可以控制线条末端的形状是平头、圆头还是方头（"butt"、"round"或"square"），通过 lineJoin 属性可以控制线条相交的方式是圆交、斜交还是斜接（"round"、"bevel"或"miter"）;clearRect()用于清除画布上的矩形区域；这个方法可以把绘制上下文中的某一矩形区域变透明
+
+(3)上下文对象的API方法：1，beginPath()方法开始调用一条新路径。2，moveTo()方法开始定义一条新的子路径。3，lineTo()方法将该点与新的点通过直线连接起来。4，stroke()方法将路径上的勾勒出来。5，fill()方法填充路径闭合的区域。6，closePath()方法将子路径的起点和终点连接起来。
+
+(4)stroke()方法和fill()方法非常重要的两点：1，这个两个方法都是作用在当前路径上的所有子路径。2，stroke()方法和fill()方法不更改当前路径。
+
+(5)设置上下文对象的fillStyle,strokeStyle,lineWidth属性，这些都是图形属性。分别制定了调用fill()和storke()时采用的颜色以及调用stroke()方法绘制线段的宽度。
+
+(6)canvas当中使用图片，使用new Image()构造函数创建在image.onload之后加入图片。使用drawImage()方法。drawImage()为两参数时：drawImage('图片对象',x,y),为四参数时：drawImage('图片对象',x,y,width,height);为八个参数时：drawImage('图片对象',cx,cy,cw,ch,x,y,width,height)
+
+(7)设置文字：fillText()或者strokeText();方法。设置文字的属性样式有font(文字的样式，文字大小，文字的字体),textAlign(文字水平的对其方式,值有start,end,left,center,right等),textBaseline(文本基线，垂直的对其方式,值有top,middle,bottom等),
+
+(7)设置水平的渐变颜色。createLinearGradient(initx,inity,endx,endy);添加渐变的颜色。addColorStop(0~1,color);设置径向的渐变颜色。createRadialGradent()
+
+(8)添加阴影：shadowColor设置阴影颜色。shadowOffsetX设置阴影的水平偏移量。shadowOffsetY设置阴影的垂直偏移量。shadowBlur()设置阴影的模糊程度。
+
+(9)图形变换：所有的变换都是针对坐标系的不是针对于图形的。rotate()围绕原点旋转图像angle弧度。scale(scaleX,scaleY)缩放图像。translate(x,y)将坐标原点移动到(x,y)。执行这个转换之后，坐标(0,0)会变成之前由(x,y)表示的点。
+
+(10)保存状态和获取状态：save()方法保存当前的状态。restore()方法获取之前保存的状态。对于保存图形变换之前的坐标轴状态非常有用。
+
+(11)模式：模式就是重复的图像，可以用来填充或者描边图形。创建一个模式使用createPattern(),第一个参数为img对象，可以为canvas或者video对象。第二个参数为repeat,repeat-x,repeat-y,no-repeat等。
+设置填充图像context.fillStyle=pattern;context.fillRect()填充图像；
+
+获取图像数据：var imageData = context.getImageData(10, 5, 50, 50);每个 ImageData 对象都有三个属性：width、height 和data。其中 data 属性是一个数组，保存着图像中每一个像素的数据。在 data 数组中，每一个像素用4 个元素来保存，分别表示红、绿、蓝和透明度值。
+
+//html5 绘制圆 context.arc(x,y,r,sAngle,eAngle,direction);默认为顺时针，direction默认为false;顺时针为true;sAngle~eAngle为圆的弧度制；需要调用Math().PI来绘制。默认情况顺时针弧度分为0pi,0.5pi,1pi,1.5pi,2pi;
+
+

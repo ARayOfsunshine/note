@@ -56,6 +56,8 @@ React-Router4:
 安装：npm install react-router-dom;
 导入关键模块:import {BroserRouter as Router,Route,Link}from 'react-router-dom';
 
+import {withRouter} from 'react-router-dom';withRouter(组件) 使没被Route渲染的组件拥有路由信息；
+
 Route组件：它最基本的职责就是当页面的访问地址与 Route 上的 path 匹配时，就渲染出对应的 UI 界面。
 Route组件的属性：1，render methods分别是：<Route component>，<Route render>，<Route children>同一个<Route> 应该只使用一种 render method ，大部分情况下你将使用 component。
                  2，props分别是：match,location,history。所有的 render method 无一例外都将被传入这些 props。  
