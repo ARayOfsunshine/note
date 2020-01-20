@@ -3,9 +3,9 @@
 µ±³ÌÐò²éÑ¯·ÃÎÊÆ÷µÄÊôÐÔÖµÊ±£¬JavaScript´úÓÃgetter·½·¨£¨ÎÞ²ÎÊý£©£¬Õâ¸ö·½·¨µÄ·µ»ØÖµ¾ÍÊÇ¸ÃÊôÐÔ´æÈ¡±í´ïÊ½µÄÖµ¡£µ±³ÌÐòÉèÖÃÒ»¸ö·ÃÎÊÆ÷ÊôÐÔÖµÊ±£¬JavaScriptµ÷ÓÃsetter·½·¨£¬½«¸³Öµ±í´ïÊ½ÓÒ²àµÄÖµµ±×÷²ÎÊý´«Èësetter¡£´ÓÄ³ÖÖÒâÒåÉÏÀ´Ëµ£¬Õâ¸ö·½·¨¸ºÔðÉèÖÃÊôÐÔÖµ£¬¿ÉÒÔºöÂÔ¸Ã·½·¨µÄ·µ»ØÖµ¡£
 
 1£º¶ÔÏóµÄÊý¾ÝÊôÐÔ¾ßÓÐËÄ¸öÊôÐÔÌØÐÔ£¬·Ö±ðÎª£¬value(Öµ),writable(¿ÉÐ´ÐÔ),enumerable(¿ÉÃ¶¾ÙÐÔ),configurable(¿ÉÅäÖÃÐÔ)£»
-[[Configurable]]£º±íÊ¾ÄÜ·ñÍ¨¹ý delete É¾³ýÊôÐÔ´Ó¶øÖØÐÂ¶¨ÒåÊôÐÔ£¬ÄÜ·ñÐÞ¸ÄÊôÐÔµÄÌØÐÔ£¬»òÕßÄÜ·ñ°ÑÊôÐÔÐÞ¸ÄÎª·ÃÎÊÆ÷ÊôÐÔ¡£ÏñÇ°ÃæÀý×ÓÖÐÄÇÑùÖ±½ÓÔÚ¶ÔÏóÉÏ¶¨ÒåµÄÊôÐÔ£¬ËüÃÇµÄÕâ¸öÌØÐÔÄ¬ÈÏÖµÎª true¡£
-[[Enumerable]]£º±íÊ¾ÄÜ·ñÍ¨¹ý for-in Ñ­»··µ»ØÊôÐÔ¡£ÏñÇ°ÃæÀý×ÓÖÐÄÇÑùÖ±½ÓÔÚ¶ÔÏóÉÏ¶¨ÒåµÄÊôÐÔ£¬ËüÃÇµÄÕâ¸öÌØÐÔÄ¬ÈÏÖµÎª true¡£
-[[Writable]]£º±íÊ¾ÄÜ·ñÐÞ¸ÄÊôÐÔµÄÖµ¡£ÏñÇ°ÃæÀý×ÓÖÐÄÇÑùÖ±½ÓÔÚ¶ÔÏóÉÏ¶¨ÒåµÄÊôÐÔ£¬ËüÃÇµÄÕâ¸öÌØÐÔÄ¬ÈÏÖµÎª true¡£
+[[Configurable]]£º±íÊ¾ÄÜ·ñÍ¨¹ý delete É¾³ýÊôÐÔ´Ó¶øÖØÐÂ¶¨ÒåÊôÐÔ£¬ÄÜ·ñÐÞ¸ÄÊôÐÔµÄÌØÐÔ£¬»òÕßÄÜ·ñ°ÑÊôÐÔÐÞ¸ÄÎª·ÃÎÊÆ÷ÊôÐÔ¡£ËüÃÇµÄÕâ¸öÌØÐÔÄ¬ÈÏÖµÎª true¡£
+[[Enumerable]]£º±íÊ¾ÄÜ·ñÍ¨¹ý for-in Ñ­»··µ»ØÊôÐÔ¡£ËüÃÇµÄÕâ¸öÌØÐÔÄ¬ÈÏÖµÎª true¡£
+[[Writable]]£º±íÊ¾ÄÜ·ñÐÞ¸ÄÊôÐÔµÄÖµ¡£ËüÃÇµÄÕâ¸öÌØÐÔÄ¬ÈÏÖµÎª true¡£
 [[Value]]£º°üº¬Õâ¸öÊôÐÔµÄÊý¾ÝÖµ¡£¶ÁÈ¡ÊôÐÔÖµµÄÊ±ºò£¬´ÓÕâ¸öÎ»ÖÃ¶Á£»Ð´ÈëÊôÐÔÖµµÄÊ±ºò£¬°ÑÐÂÖµ±£´æÔÚÕâ¸öÎ»ÖÃ¡£Õâ¸öÌØÐÔµÄÄ¬ÈÏÖµÎª undefined¡£
 
 ×¢Òâ£ºÔÚµ÷ÓÃ Object.defineProperty()·½·¨Ê±£¬Èç¹û²»Ö¸¶¨£¬configurable¡¢enumerable ºÍwritable ÌØÐÔµÄÄ¬ÈÏÖµ¶¼ÊÇ false¡£
@@ -50,7 +50,7 @@ var person1=new Person(name,age,job);new ²Ù×÷·û¡£ÒÔÕâÖÖ·½Ê½µ÷ÓÃ¹¹Ôìº¯ÊýÊµ¼ÊÉÏ»á¾
 ÎÞÂÛÊ²Ã´Ê±ºò£¬Ö»Òª´´½¨ÁËÒ»¸öÐÂº¯Êý£¬¾Í»á¸ù¾ÝÒ»×éÌØ¶¨µÄ¹æÔòÎª¸Ãº¯Êý´´½¨Ò»¸ö prototypeÊôÐÔ£¬Õâ¸öÊôÐÔÖ¸Ïòº¯ÊýµÄÔ­ÐÍ¶ÔÏó¡£function Person(){} Preson.prototypeÖ¸ÏòÔ­ÐÍ¶ÔÏó¡£
 var person1=new Person();person1¶ÔÏóÀïÃæÓÐ¸öÄÚ²¿¶ÔÏó[[prototype]],ÔÚchrome,firefox,safariµÈä¯ÀÀÆ÷ÖÐÒÔ__proto__µÄÐÎÊ½±íÏÖ¡£Õâ¸öÊôÐÔÖ¸ÏòÔ­ÐÍ¶ÔÏó(Person.prototype)¡£ËüÓë¹¹Ôìº¯ÊýÃ»ÓÐÖ±½ÓµÄ¹ØÏµ¡£(±£´æ×ÅÔ­ÐÍ¶ÔÏóµÄÖ¸Õë)
 
-×¢Òâ£ºÔ­ÐÍ¶ÔÏóÀïÃæ½øÐÐÐÞÐÞ¸Ä¶¼ÄÜ¼°Ê±·´Ó³¸øÊµÀý¶ÔÏó£¨ÎÞÂÛÊÇÔÚÊµÀý»¯¶ÔÏóÇ°»òÕßÊÇÊµÀý»¯¶ÔÏóÖ®ºó¶¼ÄÜ¼°Ê±·´Ó³£©£¬ÊÇÔ­ÐÍµÄ¶¯Ì¬ÌØÕ÷¡£¶ø¶ÔÓÚÔ­ÐÍµÄÖØÐ´¾ÍÐèÒªÌØ±ð×¢ÒâÁË£¬Èç¹ûÔÚÊµÀý»¯Ö®ºóÖØÐ´ÁËÔ­ÐÍ¶ÔÏó£¬¾ÍÄÜµÈÓÚ½«¹¹Ôìº¯ÊýµÄÔ­ÐÍ¶ÔÏóÖØÐ´£¬¾ÍÊÇÇÐ¶ÏÁË³õÊ¼µÄÔ­ÐÍ¶ÔÏó£¬¶øÊµÀý»¯µÄ¶ÔÏóÊÇ×î³õÊ¼µÄÔ­ÐÍ¶ÔÏó¡£ÊµÀý¶ÔÏóÓë¹¹Ôìº¯ÊýÃ»ÓÐÁªÏµ£¬ËûÃÇÖ»ÊÇÖ¸ÏòµÄÍ¬Ò»Ô­ÐÍ¶ÔÏó¶øÒÑ¡£
+×¢Òâ£ºÔ­ÐÍ¶ÔÏóÀïÃæ½øÐÐÐÞ¸Ä¶¼ÄÜ¼°Ê±·´Ó³¸øÊµÀý¶ÔÏó£¨ÎÞÂÛÊÇÔÚÊµÀý»¯¶ÔÏóÇ°»òÕßÊÇÊµÀý»¯¶ÔÏóÖ®ºó¶¼ÄÜ¼°Ê±·´Ó³£©£¬ÊÇÔ­ÐÍµÄ¶¯Ì¬ÌØÕ÷¡£¶ø¶ÔÓÚÔ­ÐÍµÄÖØÐ´¾ÍÐèÒªÌØ±ð×¢ÒâÁË£¬Èç¹ûÔÚÊµÀý»¯Ö®ºóÖØÐ´ÁËÔ­ÐÍ¶ÔÏó£¬¾ÍÄÜµÈÓÚ½«¹¹Ôìº¯ÊýµÄÔ­ÐÍ¶ÔÏóÖØÐ´£¬¾ÍÊÇÇÐ¶ÏÁË³õÊ¼µÄÔ­ÐÍ¶ÔÏó£¬¶øÊµÀý»¯µÄ¶ÔÏóÊÇ×î³õÊ¼µÄÔ­ÐÍ¶ÔÏó¡£ÊµÀý¶ÔÏóÓë¹¹Ôìº¯ÊýÃ»ÓÐÁªÏµ£¬ËûÃÇÖ»ÊÇÖ¸ÏòµÄÍ¬Ò»Ô­ÐÍ¶ÔÏó¶øÒÑ¡£
 
 (3)×éºÏÊ¹ÓÃ¹¹Ôìº¯ÊýÄ£Ê½ºÍÔ­ÐÍÄ£Ê½£º¹¹Ôìº¯ÊýÄ£Ê½ÓÃÓÚ¶¨ÒåÊµÀýÊôÐÔ£¬¶øÔ­ÐÍÄ£Ê½ÓÃÓÚ¶¨Òå·½·¨ºÍ¹²ÏíµÄÊôÐÔ¡£ÕâÖÖ¹¹Ôìº¯ÊýÓëÔ­ÐÍ»ì³ÉµÄÄ£Ê½£¬ÊÇÄ¿Ç°ÔÚ ECMAScript ÖÐÊ¹ÓÃ×î¹ã·º¡¢ÈÏÍ¬¶È×î¸ßµÄÒ»ÖÖ´´½¨×Ô¶¨ÒåÀàÐÍµÄ·½·¨¡£
 

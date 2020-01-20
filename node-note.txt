@@ -1,4 +1,4 @@
-node的特点：运行在chrom v8 runtime；优秀的i/o流。以及出色的高并发处理。
+node的特点：运行在chrome v8 runtime；优秀的i/o流。以及出色的高并发处理。
 
 //File System文件系统文件    
 var fs=require("fs");       
@@ -6,7 +6,6 @@ var fs=require("fs");
 增删改查文件：fs.readFile(path,option,callback);fs.writeFile(file,data,callback);fs.appendFile(path,data,callback);fs.unlink(path,callback);//同步方法名后面加Sync;
 判断是否是文件使用fs.stat类；
 fs.stat("文件名字",(err,stats)=>{stats.isFile():返回值boolean })
-
 
 
 第三方模块：nodemailer：向用户发送验证邮箱验证码功能!

@@ -1,0 +1,17 @@
+javascript是单线程执行的。注意：HTML5提出的web worker标准，允许javascript脚本创建多个线程，但是子线程还是受到主线程的控制的，且不的操作DOM，所以这个标准并没有改变javascript单线程的本质。
+
+javascript的执行顺序：1、同步和异步任务分别进入不同的执行"场所"，同步的进入主线程，异步的进入Event Table并注册函数。
+
+                      2、当Event Table中指定的事情完成时，会将这个函数移入Event Queue。
+
+                      3、主线程内的任务执行完毕为空，会去Event Queue读取对应的函数，进入主线程执行。
+
+                      4、上述过程会不断重复，也就是常说的Event Loop(事件循环)。
+
+                      5、我们不禁要问了，那怎么知道主线程执行栈为空啊？js引擎存在monitoring process进程，会持续不断的检查主线程执行栈是否为空，一旦为空，就会去Event Queue那里检查是否有等待被调                         用的函数。
+
+JavaScript的宏任务与微任务：
+JavaScript除了广义上的的同步任务何异步任务，其对任务还有更精细的定义：macro-task(宏任务)：包括整体代码script，setTimeout，setInterval
+                                                                      icro-task(微任务)：Promise，process.nextTick，async await。
+不同类型的任务会进入对应的Event Queue。
+
