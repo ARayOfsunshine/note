@@ -8,10 +8,11 @@ javascriptµÄÖ´ÐÐË³Ðò£º1¡¢Í¬²½ºÍÒì²½ÈÎÎñ·Ö±ð½øÈë²»Í¬µÄÖ´ÐÐ"³¡Ëù"£¬Í¬²½µÄ½øÈëÖ÷Ïß³
 
                       4¡¢ÉÏÊö¹ý³Ì»á²»¶ÏÖØ¸´£¬Ò²¾ÍÊÇ³£ËµµÄEvent Loop(ÊÂ¼þÑ­»·)¡£
 
-                      5¡¢ÎÒÃÇ²»½ûÒªÎÊÁË£¬ÄÇÔõÃ´ÖªµÀÖ÷Ïß³ÌÖ´ÐÐÕ»Îª¿Õ°¡£¿jsÒýÇæ´æÔÚmonitoring process½ø³Ì£¬»á³ÖÐø²»¶ÏµÄ¼ì²éÖ÷Ïß³ÌÖ´ÐÐÕ»ÊÇ·ñÎª¿Õ£¬Ò»µ©Îª¿Õ£¬¾Í»áÈ¥Event QueueÄÇÀï¼ì²éÊÇ·ñÓÐµÈ´ý±»µ÷                         ÓÃµÄº¯Êý¡£
+                      5¡¢ÎÒÃÇ²»½ûÒªÎÊÁË£¬ÄÇÔõÃ´ÖªµÀÖ÷Ïß³ÌÖ´ÐÐÕ»Îª¿Õ°¡£¿jsÒýÇæ´æÔÚmonitoring process½ø³Ì£¬»á³ÖÐø²»¶ÏµÄ¼ì²éÖ÷Ïß³ÌÖ´ÐÐÕ»ÊÇ·ñÎª¿Õ£¬Ò»µ©Îª¿Õ£¬¾Í»áÈ¥Event QueueÄÇÀï¼ì²éÊÇ·ñÓÐµÈ´ý±»µ÷                          ÓÃµÄº¯Êý¡£
 
 JavaScriptµÄºêÈÎÎñÓëÎ¢ÈÎÎñ£º
 JavaScript³ýÁË¹ãÒåÉÏµÄµÄÍ¬²½ÈÎÎñºÎÒì²½ÈÎÎñ£¬Æä¶ÔÈÎÎñ»¹ÓÐ¸ü¾«Ï¸µÄ¶¨Òå£ºmacro-task(ºêÈÎÎñ)£º°üÀ¨ÕûÌå´úÂëscript£¬setTimeout£¬setInterval
                                                                       icro-task(Î¢ÈÎÎñ)£ºPromise£¬process.nextTick£¬async await¡£
 ²»Í¬ÀàÐÍµÄÈÎÎñ»á½øÈë¶ÔÓ¦µÄEvent Queue¡£
 
+×Ü½á£ºjsÖ´ÐÐ´úÂëÍ¬²½ÈÎÎñÒÔ¼°Òì²½ÈÎÎñµÄÊ±¼äË³ÐòÎª£¬ÏÈÖ´ÐÐÍ¬²½ÈÎÎñºó£¬ÔÚÈ¥Ö´ÐÐÒì²½ÈÎÎñ£¬È»ºóÒì²½ÈÎÎñ·ÖºêÈÎÎñÒÔ¼°Î¢ÈÎÎñ£¬Î¢ÈÎÎñ»áÔÚ±¾´ÎÖ´ÐÐµÄÏÈÖ´ÐÐ£¬È»ºóºêÈÎÎñ»áÔÚÏÂÒ»´ÎÊÂ¼þÑ­»·ÖÐÔÚÖ´ÐÐ¡£
