@@ -101,5 +101,20 @@ map和文件类File:
 IO流 字符流与字节流：
 （1）：所有字符流的超类：Reader,Writer。实现的子类：字符输入流FileReader，字符输出流FileWriter。高效缓冲字符输入流BufferedReader。高效缓冲字符输出流BufferedWriter。具体方法API文档。
 （2）：所有字节流的超累。InputStream,OutputStream。实现的子类：字节输入流FileInputStream。字节输出流FileOutputStream。高效缓冲字节输入流BufferedInputStream。高效缓冲字节输出流BufferedOutStream。
+（3）：字符流通向字节流OutputStreamWrite。InputStreamReader。字符流方式编写字节流的文件，能通过编码的方式指定输出字节流的编码方式。
+（4）：打印流，	PrintWrite。特点：1，可以打印各种数据类型。2，封装了字符输出流，还可以字符流和字节流的转换。3，可以使用自动刷新，则只有在调用println,printf或format的其中一个方法时才可能完成此操作。4，可以直接向文件写数据。
+（5）：properties属性集。特点：1，继承于HashTable,是线程安全的键值存储结构。2，properties可保存在流中或从流中加载。3，只能保存字符串的键值对。
+（6）：序列化流（对象流）：把对象以流的形式存储在硬盘上或数据库中。对象输出流，ObjectOutputStream将java对象的基本数据类型和图形写入outputStream。对象输入流，ObjectInputStream对以前使用ObjectOutputStream写入的基本数据和对象进行反序列化。
+
+线程：Tread
+（1）：线程的两种实现方式。1，以继承Tread的方式创建，继承的重写run方法,run方法就是开启线程后的执行体。使用线程需要创建继承的来的类。使用start方法启动一个线程。例：MyThread mt=new MyThread();mt.start();
+                           2，实现Runnable接口，实现run方法，通过Thread th=new Thread(传入实现Runnable类)。th.start()方法开启一个线程。
+（2）：线程的生命周期：1，新建：线程被new出来。
+                       2，准备就绪：线程具有执行的资格，即线程调用了start(),没有执行的权力。
+                       3，运行，具备执行的资格和具备执行的权力。
+                       4，阻塞，没有执行的资格和执行权利。
+                       5，销毁，线程的对象变成垃圾，释放资源。
+（3）：线程的并发：线程并发导致同一个共享资源块或共享代码被同时执行，导致问题。解决并发出现的方法，使用synchronized(锁对象){}锁代码块。思想是通过同步的方法实现多个线程同时执行访问的问题。
+
 
 
