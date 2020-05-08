@@ -1,0 +1,45 @@
+控件属性
+id：控件的标识，可与代码相关。
+
+在代码中使用控件
+1，声明控件
+2，findViewById();返回值为view。所有控件的父类都是view。
+
+Button：控件的事件
+（1）：以内部内的方式给Button控件添加事件：
+关联button控件pravite Button btn;btn=(Button)findViewById(R.id.控件上的id属性值)；
+给button控件添加事件btn.setOnClickListener(实现View.onClickListener的类对象);
+（2）：以匿名类的方法直接实现类的方法。
+关联button控件pravite Button btn;btn=(Button)findViewById(R.id.控件上的id属性值)；
+给button控件添加事件btn.setOnClickListener(View.OnClickListener(){ public void onClick(View v){事件处理程序}});
+（3）：以xml的方式设置事件
+给Button控件直接添加android:onClick="事件名"。
+在代码中以public void 事件名(参数需要跟事件事件的原型类相同 View v){}
+
+EditText:输入框
+（1）：比较重要的几个属性：text文本内容，inputType文本类型，hint给输入框提示。
+
+imageView:图像控件（文件名指的都是没有后缀的）
+（1）：比较重要的几个属性：src=“@dramable/文件名”,setImageResouce(R.dramable.文件名);
+
+imageButton：图像按键
+（1）：imageButton是imageView的子类，点击图片是可以响应事件的。
+
+案例：点击下一张图片小demo。
+
+radioGroup与radioButton：单选框组与单选框
+（1）：radioGroup控件下radioButton发生改变可以使用setOnCheckedChangeListener来监听事件。实现的接口类对象为RadioGroup.OnCheckedChangeListener，
+方法为onCheckedChanged(RadioGroup group,Int checkedId);  参数checkedId是选中RadioButton的ID，可以使用R.id.组件id来判断选中单选项，或通过获取到的RadioButton的关联对象来使用isChecked()来判断控件的选中状态来判断选中哪一个。
+（2）：radioButton当中选中设置属性为setChecked(true);
+
+CheckBox：复选框按钮
+isChecked():确定复选框是否被选中；
+setChecked():强制选中或取消选中。
+监听器：实现CompoundButtin.OnCheckedChangeListener接口。并实现回调方法onCheckedChange()方法。
+
+案例：多选框选择课程同时展示出来选中的课程。
+
+资源的使用：资源的使用是为了国际化或本地化的使用。资源的文件一定要是小写。
+在res文件夹下有个values文件，存放的是资源xml文件预设好的参数值，能够根据系统设置自动改变预设好的代码预设。values默认为安卓系统语言为英语的资源使用，而values-zh为中文的。
+资源使用可以在布局文件当中使用：@资源名称/资源的name
+在代码中使用：Resouces res=new 	Resouces();String str=res.getString(R.string.test);
