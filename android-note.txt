@@ -25,17 +25,17 @@ imageView:图像控件（文件名指的都是没有后缀的）
 imageButton：图像按键
 （1）：imageButton是imageView的子类，点击图片是可以响应事件的。
 
-案例：点击下一张图片小demo。
+案例：点击下一张图片小demo。完
 
 radioGroup与radioButton：单选框组与单选框
 （1）：radioGroup控件下radioButton发生改变可以使用setOnCheckedChangeListener来监听事件。实现的接口类对象为RadioGroup.OnCheckedChangeListener，
 方法为onCheckedChanged(RadioGroup group,Int checkedId);  参数checkedId是选中RadioButton的ID，可以使用R.id.组件id来判断选中单选项，或通过获取到的RadioButton的关联对象来使用isChecked()来判断控件的选中状态来判断选中哪一个。
 （2）：radioButton当中选中设置属性为setChecked(true);
 
-CheckBox：复选框按钮
+CheckBox：复选框按钮	
 isChecked():确定复选框是否被选中；
 setChecked():强制选中或取消选中。
-监听器：实现CompoundButtin.OnCheckedChangeListener接口。并实现回调方法onCheckedChange()方法。
+监听器：实现CompoundButton.OnCheckedChangeListener接口。并实现回调方法onCheckedChange()方法。
 
 案例：多选框选择课程同时展示出来选中的课程。
 
