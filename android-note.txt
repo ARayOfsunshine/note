@@ -25,8 +25,6 @@ imageView:图像控件（文件名指的都是没有后缀的）
 imageButton：图像按键
 （1）：imageButton是imageView的子类，点击图片是可以响应事件的。
 
-案例：点击下一张图片小demo。完
-
 radioGroup与radioButton：单选框组与单选框
 （1）：radioGroup控件下radioButton发生改变可以使用setOnCheckedChangeListener来监听事件。实现的接口类对象为RadioGroup.OnCheckedChangeListener，
 方法为onCheckedChanged(RadioGroup group,Int checkedId);  参数checkedId是选中RadioButton的ID，可以使用R.id.组件id来判断选中单选项，或通过获取到的RadioButton的关联对象来使用isChecked()来判断控件的选中状态来判断选中哪一个。
@@ -37,9 +35,23 @@ isChecked():确定复选框是否被选中；
 setChecked():强制选中或取消选中。
 监听器：实现CompoundButton.OnCheckedChangeListener接口。并实现回调方法onCheckedChange()方法。
 
-案例：多选框选择课程同时展示出来选中的课程。
 
 资源的使用：资源的使用是为了国际化或本地化的使用。资源的文件一定要是小写。
 在res文件夹下有个values文件，存放的是资源xml文件预设好的参数值，能够根据系统设置自动改变预设好的代码预设。values默认为安卓系统语言为英语的资源使用，而values-zh为中文的。
 资源使用可以在布局文件当中使用：@资源名称/资源的name
 在代码中使用：Resouces res=new 	Resouces();String str=res.getString(R.string.test);
+
+触屏事件：
+（1）：对屏幕的触屏事件重写Activity类的onTouchEvent(MotionEvent event)方法。通过参数event.getAction()方法能区分用户的操作，用于与MotionEvent类的属性比较。event.getAction().getX()用于获取在当前屏幕的x的位置，event.getAction().getY()用于获取在当前屏幕Y的位置。
+（2）：MotionEvent.ACTION_DOWN手势按下，MotionEvent.ACTION_MOVE手势移动，MotionEvent.ACTION_UP手势抬起。
+（3）：在控件上注册监听事件，使用的是监听事件setOnTouchListener()。实现的类为View.OnTouchListener。重写方法为public booleab onTouch(View view,MotionEvent event){};	
+
+
+layout：布局
+（1）：LinearLayout线性布局：比较重要的属性orientation排列方向(分别为水平与垂直)，gravity重心（控件的对齐方式）android:layout_weight权重设置在线性布局的控件上指的是占布局的比重。对于布局下有很多控件下可以通过布局对象获取子控件的个数getChildCount()方法。 案例：动态更改排列方向。通过checkbox来选择重心排列位置。
+（2）：RelativeLayout相对布局：1，相对布局可以以父容器相对对齐的方式属性在控件上alignParentLeft,alignParentTop等，或者以控件间的相对对齐做参考的在对比控件上有layout_above在上方，layout_alginleft在左对齐，layout_below在下方，layout_alginbotton等。（对其的比较为id值）；
+（3）：tableLayout：表单布局，控制直接放在tablelayout会占满一行，要用tablerow才能使用单元格。能给子控件添加layout_span来表示占几个单元格。在子控件上使用layout_column来表示控件在展示在第几个单元格（注意：单元格索引开始值为0）。使用tablelayout属性stretchColumns来指定整个表单的表格扩张沾满。使用tableLayout属性shrinkColumns来指定整个表单的表格收缩。使用tableLayout属性collapsceCloumn来折叠指定的列。
+（4）：安卓4.0添加的GridLayout网格布局。常用属性有orientation指定网格控件的排列方式，layout_gravity来指定网格控件的对其方式。属性rowCount来指定网格占有几行，属性colmunCount来指定网格占有几列。
+（5）：FrameLayout帧布局。显示的对象将会固定在屏幕的左上角，不能指定位置。当有多个显示对象，后一个将会直接在前一个之上进行覆盖显示，把前一个控件部分或全部挡住。
+（6）：drawerLayout抽屉布局。侧边拖动出现菜单项。
+（7）：scrollView设置垂直滚动条。滚动条控件下，只允许设置一个子容器。同理水平控制条为horizontalScrollView。
