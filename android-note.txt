@@ -55,3 +55,10 @@ layout：布局
 （5）：FrameLayout帧布局。显示的对象将会固定在屏幕的左上角，不能指定位置。当有多个显示对象，后一个将会直接在前一个之上进行覆盖显示，把前一个控件部分或全部挡住。
 （6）：drawerLayout抽屉布局。侧边拖动出现菜单项。
 （7）：scrollView设置垂直滚动条。滚动条控件下，只允许设置一个子容器。同理水平控制条为horizontalScrollView。
+
+
+消息处理机制：
+主线程处理事件超过5秒，app会提示程序无响应，所以主线线程处理的事件不能超过5秒。
+
+XML解析：
+（1）：在安卓项目当中使用xml文件放在xml文件夹中。对于xml的解析工作是使用xmlPullParser来执行的（安卓项目是使用pull解析，pull解析本质就是SAX解析）。获取xml文件然后通过xmlPullParser来处理。代码案例：xmlPullParser parser =getResouces().getXml(R.xml.xml文件名)。同过parser对象来获知xml解析的情况。parser.getEventType();通过与xmlPullParser.START_DOCUMENTD等来判断解析到的情况。一般解析文件操作比较耗时，应该开启一个线程来执行。
