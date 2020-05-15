@@ -62,3 +62,26 @@ layout：布局
 
 XML解析：
 （1）：在安卓项目当中使用xml文件放在xml文件夹中。对于xml的解析工作是使用xmlPullParser来执行的（安卓项目是使用pull解析，pull解析本质就是SAX解析）。获取xml文件然后通过xmlPullParser来处理。代码案例：xmlPullParser parser =getResouces().getXml(R.xml.xml文件名)。同过parser对象来获知xml解析的情况。parser.getEventType();通过与xmlPullParser.START_DOCUMENTD等来判断解析到的情况。一般解析文件操作比较耗时，应该开启一个线程来执行。
+
+json解析：
+java中的json对象JsonObject json=new JsonObject();json.getString("键名");
+
+消息提示：
+Toast给用户一个短暂的提示，用户不需要进行响应。使用：使用Toast类上的静态方法，Toast.makeText(context,text,duration)；context上下文，text:提示的信息，duration提示的时长。
+如果需要定义自己自定义提示内容可以使用构造的方法创建Toast。使用:Toast t=new Toast(context);t.setView(控件);t.setDuration(设置时长)注意设置完后必须调用t.show()方法。
+获取自定义的view使用方法：View v=LayoutInflater.from(this).inflate(R.layou.viewId,null);
+AlterDiaog对话消息提示：用户必须点击确定对话框才会消失。使用：AlterDialog ad=new AlterDialog.Builder(context).setTtile().setMessage().setPositiveButton(按钮文字,事件监听).create();ad.show();对话框按钮事件使用new DialogInterface.onClickListener(){ 实现public void onClick(){}}。
+
+列表对话框：单项的列表对话框：使用对话框类AlterDialog创建：使用:new AlterDialog.Builder(context).setItem(数组，用来创建的列表项).show();
+            具有单选按钮的列表对话框：使用的是setSingleChoiceItems(数组，默认选中项，事件监听)。注意：点击对话框想要保存之前的选项，应该将创建的类使用AlterDialog 变量保存。
+            具有多项选择按钮的列表对话框:使用的方法是setMulitChoiceItems(数组，布尔值，事件监听);
+
+进度条对话框：展示工作的进行到的情况反馈。默认的展示是加载圈。水平的展示进度条使用：ProgressDialog dlg =new progressDialog(context);dlg.setTitle(),set...等。dlg.setProgressStyle(设置进度条的样式。ProgressDialog.常量)；dlg.show();设置进度条的数值dlg.setProgress(整数);关闭进度条对话框dlg.dismiss();
+
+自定义对话框：方法1：使用AlterDialog.Builder().setView()设置视图的方法。方法2：使用Dialog类的实例，使用方法setContentView(View view)设置自定义视图。
+              方法1：解析自定义资源当中的布局文件。layoutInterface i=getLayoutInflater();View custom =i.inflater(R.layout.视图文件名)。
+              方法2：Dialog dl=new Dialog(context);dl.setContentView(视图)；关闭对话框 dl.dismiss();
+
+适配器：负责为部件提供数据源，让数据能够显示在控件上，就是适配器的工作。adapater ListView控件显示adapter。ArrayAdapter。
+SimpleAdapter adapter=new SimpleAdapter(context,data,项布局，显示数据源的key,显示数据的id);
+BaseAdapter类是一个接口，需要实现内置好的方法，对应的设置好适配的数据源。最后通过ListView.setAdapter(对BaseAdapter接口实现类的实例对象)
