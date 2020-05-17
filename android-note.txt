@@ -82,6 +82,17 @@ AlterDiaog对话消息提示：用户必须点击确定对话框才会消失。使用：AlterDialog ad=new
               方法1：解析自定义资源当中的布局文件。layoutInterface i=getLayoutInflater();View custom =i.inflater(R.layout.视图文件名)。
               方法2：Dialog dl=new Dialog(context);dl.setContentView(视图)；关闭对话框 dl.dismiss();
 
-适配器：负责为部件提供数据源，让数据能够显示在控件上，就是适配器的工作。adapater ListView控件显示adapter。ArrayAdapter。
+
+适配器：
+负责为部件提供数据源，让数据能够显示在控件上，就是适配器的工作。adapater ListView控件显示adapter。ArrayAdapter(context,布局文件，控件id,data)。
 SimpleAdapter adapter=new SimpleAdapter(context,data,项布局，显示数据源的key,显示数据的id);
-BaseAdapter类是一个接口，需要实现内置好的方法，对应的设置好适配的数据源。最后通过ListView.setAdapter(对BaseAdapter接口实现类的实例对象)
+BaseAdapter类是一个接口，需要实现内置好的方法，对应的设置好适配的数据源。最后通过ListView.setAdapter(对BaseAdapter接口实现类的实例对象);
+当有数据的添加或删除是，使用方法通知适配器更改数据，就会自动反应给布局视图。adapter.notifyDatasetChanged();
+
+spinner：下拉列表样式的控件：设置控件的数据可以使用适配器或者spinner上的属性entries。可是使用数据资源的方式设置。在res/values下创建数据是数组的资源。（案例选择班，不同学生）。
+
+使用适配器的控件布局有ListView,GridView,spinner（下拉菜单效果）;
+
+Activity的配置与通信：
+要启动另一个activity的页面要使用Intent intent=new Intent();intent.setClass(context,要启动类的文件名xxx.class);最后使用方法启动startActivity(intent);
+关于intent.setAction()可以使用逻辑动作名启动页面。但同名manifest配置多个同名逻辑动作名时，会出现让用户选择的效果访问页面。	
