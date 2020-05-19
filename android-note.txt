@@ -111,10 +111,14 @@ Fragment声明周期与交互管理：
 （2）：在fragment与调用的fragment控件Activity中的声明周期是一一相对应的。
 （3）：在被调用的主布局Activity当中可以设置fragment暴露出来，并加以修改。方法：通过findFragmentById查找对应的Fragment控件（或者方法findFragmentByTag），通过查找到的对象修改暴露出来的属性进行修改fragment。注意(在接受时应该使用FragmentManager 来接受，并通过getFragmentManager来获得FragmentManager对象。)
 （3）：动态的设置Fragment：1，获得FragmentManager fm=getFragmentManager();获取FrammentManager对象。2，FragmentTransaction ft=fm.beginTransaction()。3,ft.add(容器ID，Fragment对象，Fragment的tag)。4，ft.commit();
+（4）：当设备是横屏时，res文件夹下layout-land就是设置横屏的布局文件。（案例：手机屏幕竖屏时显示单个选项卡，当是横屏时显示选项卡以及内容）
+在Fragment与Fragment进行操作，要反馈时，应当在activity当中操作，不应当在Fragment的Activity当中关联。方法：使用一个接口在主activity当中实现，让Fragment的activity当中事件方法传递事件源给接口方法，让主Activity实现。（注意：在Fragment的activity中应该设置一个方法来就收接口对象。）。
 
 
 
-
+自定义控件：
+（1）：自定义控件分，整体的重新重写控件，组合控件，继承控件。
+（2）：自定义的控件重写方式：都是继承View这个顶部类的。继承实现onDraw方法，并对自定义的类设置两个（至少两个）构造器的方法。在被动态使用或在xml布局文件使用的时候回自动被调用。
 
 
 
