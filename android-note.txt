@@ -120,7 +120,33 @@ Fragment声明周期与交互管理：
 （1）：自定义控件分，整体的重新重写控件，组合控件，继承控件。
 （2）：自定义的控件重写方式：都是继承View这个顶部类的。继承实现onDraw方法，并对自定义的类设置两个（至少两个）构造器的方法。在被动态使用或在xml布局文件使用的时候回自动被调用。
 
+service服务：
+启动后台服务，后台服务应用场景如：音乐后台播放，读取文件等，可以使用service启动后台服务。
+（1）：使用service必须继承Service类，并实现方法。当要在activity使用时在manifest当中设置，service标签，并指明name，值是哪个继承了service的类名文件。service的启动有start方法，也有bing启动方法。
+（1）：start启动使用放startService（new Intent("manifest设置server标识")）。停止stopService方法。当每次使用用start方法启动service都会调研onstartcommand方法。
+（2）：bing启动使用bindService，停止unbindServie方法。bind启动会调用onbind方法生命周期方法，bind多次启动都只会一次onbind方法。
+（3）：无论是start方法还是bing方法当停止service时都是调用onDestory方法。
+（4）：一旦某个组件start一个service后，service开始独立运行，不再与原来的组件产生任何关系。某个组件bind一个service后，service为组件提供一个接口，近似于客户端会进行互动的交互。
 
+系统服务：
+（1）：系统服务调用系统设备的服务，如：音量，屏幕亮度，网络，等。
+（2）：使用Manager管理，通过调用方法getSystemService（系统服务类型）;通过拿到系统服务对象，通过不同的方法设置设备服务属性。
+（3）：系统通知Notification。NotificationManager m;m.notify(id,notification);
 
+broadcast（广播）：
+（1）：静态使用广播要继承BoradcastRecevicer类，监听onRecevice方法监听广播发出的事件监听。广播注册在manifest当中，recevier标签祖册。发送广播方法sendBroadcast(Intent);
+（2）：动态注册广播，使用放registerRecevicer(recevicer,filter)。recevicer是继承Broadcast的实例对象，filter是IntentFilter的实例对象。取消广播放unRegigterRecevicer();
+
+sharedPreference存储：
+（1）：sharedPreference是一种轻量级的数据存取方法。以键值对的方式来存储应用程序的配置信息。
+（2）：只能存储基本的数据类型：boolean,float,int,long,string。
+（3）：以xml文件的格式存储，位于/data/data/包名/shared_prefs目录下。
+（4）：使用方法：使用Sharedpreference sp=getSharedpreferences(文件名，mode)，写入时使用实例对象的Editro ed=sp.edit()方法，通过de.putString('键名','键值')写入,真正写入de.commit()。 读取使用：sp.getString(键值,默认值)
+
+存储在文件上方法：
+（1）：使用提供的openFileoutput(文件名，mode)；获得FileoutputStream fos=openFileouput();文件io处理；
+（2）：在android 中提供获取fileoutputStream以及fileinputStream是通过openFileoutput以及openFileinput提供的。需要高效的读写可使用bufferedWrite以及buffedReader等。
+（3）：文件存储在res/raw原文件下。读：InputStream is=getResources().openRawResource(R.resouce.文件名) 解析到res/raw文件。然后通过io流读写。
+（4）：sd卡读写等，需要注意的是需要在manifest当中添加对应的权限。
 
 
