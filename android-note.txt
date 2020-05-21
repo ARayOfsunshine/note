@@ -149,4 +149,11 @@ sharedPreference存储：
 （3）：文件存储在res/raw原文件下。读：InputStream is=getResources().openRawResource(R.resouce.文件名) 解析到res/raw文件。然后通过io流读写。
 （4）：sd卡读写等，需要注意的是需要在manifest当中添加对应的权限。
 
+SQLiteDatabase:
+（1）：使用SQLiteDatabase要继承一个类，SQLiteOpenHelper并实现对应的方法（注意要实现构造器）。在Activity当中使用，使用直接创建继承类的实例并传参，使用实例对象方法getReadableDataBase()以及getWriteableDataBase()方法返回数据库对象。数据库对象使用execSQL(sql);
 
+
+contentProvider:内容提供程序
+（1）：contentProvider为应用程序提供应用程序之间的共享访问数据提供url，使用应用程序能够使用其他应用程序的数据提供便利。
+（2）：使用方法：通过上下文对象能直接获得contentResolver();contentProvider暴露出四个标准的api提供应用程序使用数据接口，分别为：insert,update,delete,query。
+（3）：Cursor类，指的是游标的意思，游标指向列表的项的方式获取数据。
