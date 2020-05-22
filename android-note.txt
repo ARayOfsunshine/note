@@ -156,4 +156,23 @@ SQLiteDatabase:
 contentProvider:内容提供程序
 （1）：contentProvider为应用程序提供应用程序之间的共享访问数据提供url，使用应用程序能够使用其他应用程序的数据提供便利。
 （2）：使用方法：通过上下文对象能直接获得contentResolver();contentProvider暴露出四个标准的api提供应用程序使用数据接口，分别为：insert,update,delete,query。
-（3）：Cursor类，指的是游标的意思，游标指向列表的项的方式获取数据。
+（3）：Cursor类，指的是游标的意思，游标指向列表的项的方式获取数据，使用Cursor对象使用方法moveToFirst,moveToNext等方法移动到想要对应的项，Cursor对象方法getString(int类型的列)
+（4）：自定义contentProvider:定义类集成ContentProvider，实现必须的抽象方法。在manifest清单文件当中注册。
+（5）：对于多表的contentProvider提供有很多表需要查询，此时使用Urimatcher类进行管理uri的对应行为。创建的uri管理UriMatcher matcher =new UriMatcher(UriMatcher.NO_MATCH);管理的UriMatcher类应该定义在所以对应的contentProvider继承的类当中。
+
+AsyncTask:
+（1）：提供一个特殊的子线程类，使用自定义类继承AsyncTask。实现必须的方法。在主线程调用时可以直接使用实例对象方法，自动调用子线程的工作。new MyTask().execute();
+（2）：在自定义类的实现方法中，doInBackground方法是再子线程上执行的且是必须实现的方法。
+
+动画：
+（1）：逐帧动画使用：在res资源文件下创建文件anim文件，创建一个xml的动画文件。使用的xml标签是animation-list，子标签为item。在animation-list 当中设置属性xmlns属性指定android属性提取的是哪个属性。在item中使用android:drawable指定动画资源，android:duration指定执行时间。真正使用动画动起来的是AnimationDrawable类的方法start()方法。AnimationDrawable ad=(AnimationDrawable)findViewById(R.id.)
+（2）：补间动画：只设置关键帧，过度帧有系统自动帮助完成。使用：定义动画属性在anim文件下以xml设置完成。Animation animtion =AnimationUtil.loadAnimation(this,设置在anim的xml动画资源属性)。获得需要的运动的对象使用startAnimation(animation)
+（3）：属性动画：对象动画以及属性动画：对象动画使用对象ObjectAnimation。ValueAnimation对象。
+
+MediaPlayer音频：
+（1）：通过直接创建MediaPlayer的实例对象，通过实例对象调用方法使用音频资源。
+（2）：通过MediaPlayer.create(context,url)的方法创建方法，直接使用音频资源。
+
+视频：
+（1）：使用videoView的方法播放视频，1,在Activity中获取组件，并使用VideoView.setVideoPath()方法或者VideoView.setVideoURI()方法加载需要的视频。2,设置MediaController。3,获得焦点requestFocus();
+（2）：
