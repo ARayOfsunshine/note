@@ -106,7 +106,7 @@ Activity的四种启动模式：
 
 
 
-Fragment声明周期与交互管理：
+Fragment生命周期与交互管理：
 （1）：Fragment的使用：创建定义的fragment类并继承Fragment。必须重写OncreateView方法。并解析关联布局，并返回该布局。在要使用的主布局文件中使用Fragment控件的属性name进行调用使用。
 （2）：在fragment与调用的fragment控件Activity中的声明周期是一一相对应的。
 （3）：在被调用的主布局Activity当中可以设置fragment暴露出来，并加以修改。方法：通过findFragmentById查找对应的Fragment控件（或者方法findFragmentByTag），通过查找到的对象修改暴露出来的属性进行修改fragment。注意(在接受时应该使用FragmentManager 来接受，并通过getFragmentManager来获得FragmentManager对象。)
@@ -138,7 +138,7 @@ broadcast（广播）：
 （2）：动态注册广播，使用放registerRecevicer(recevicer,filter)。recevicer是继承Broadcast的实例对象，filter是IntentFilter的实例对象。取消广播放unRegigterRecevicer();
 
 sharedPreference存储：
-（1）：sharedPreference是一种轻量级的数据存取方法。以键值对的方式来存储应用程序的配置信息。
+（1）：sharedPreference是一种轻量级的数据存取方法。以键值对的方式来存储应用程序的配置信息。 
 （2）：只能存储基本的数据类型：boolean,float,int,long,string。
 （3）：以xml文件的格式存储，位于/data/data/包名/shared_prefs目录下。
 （4）：使用方法：使用Sharedpreference sp=getSharedpreferences(文件名，mode)，写入时使用实例对象的Editro ed=sp.edit()方法，通过de.putString('键名','键值')写入,真正写入de.commit()。 读取使用：sp.getString(键值,默认值)
@@ -175,4 +175,16 @@ MediaPlayer音频：
 
 视频：
 （1）：使用videoView的方法播放视频，1,在Activity中获取组件，并使用VideoView.setVideoPath()方法或者VideoView.setVideoURI()方法加载需要的视频。2,设置MediaController。3,获得焦点requestFocus();
-（2）：
+（2）：使用surfaceview 配合mediaPlayer自定义一个播放器。启动播放，暂停，停止按钮等可以自己定义。mediaplayer.setDisplay(surface实例)。
+
+camera(照相机):
+（1）：使用系统提供的照相机，需要一个intent来启动系统提供的照相机，启动一个方法startActivityForResult(intent,0);
+Intnet intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);intent.putExtra(MediaStore.EXTRA_OUPUT,filepath);//设置保存路径，以及文件名。startActivityForResult(intent,0);//系统照相机完成操作之后返回。onActivityResult(){}//返回结果的回调。
+（2）：自定义的照相机界面：使用surfaceView配合Camera类来自定义照相机。
+启动摄像头：Camera camera=Camera.open();启动摄像头，需要判断。使用surface，通过camera.setPreviewDisplay(surfaceHolder);设置预览。camera.startPreview();camera.takePicture(null,null.new Camera.pictureCallback(){  public void onPictureTaken(bytep[] data,Camera camera){} })。
+
+网络编程常用类：
+（1）：获得网络信息：使用connectivityManager cm=getSystemInfo(Context.CONNECTIVITY_SERVICE);cm.getNetworkInfo()。
+（2）：获得网络连接。Url url=new Url(path); HttpURLConnection conn=url.openConnection();
+
+
