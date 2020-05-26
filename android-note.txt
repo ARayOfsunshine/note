@@ -17,7 +17,7 @@ Button：控件的事件
 在代码中以public void 事件名(参数需要跟事件事件的原型类相同 View v){}
 
 EditText:输入框
-（1）：比较重要的几个属性：text文本内容，inputType文本类型，hint给输入框提示。
+（1）：比较重要的几个属性：text文本内容，inputType文本类型，hint给输入框提示。监听文本框发生改变事件：addTextChangeListener(new TextWatcher(){});
 
 imageView:图像控件（文件名指的都是没有后缀的）
 （1）：比较重要的几个属性：src=“@dramable/文件名”,setImageResouce(R.dramable.文件名);
@@ -58,13 +58,16 @@ layout：布局
 
 
 消息处理机制：
-主线程处理事件超过5秒，app会提示程序无响应，所以主线线程处理的事件不能超过5秒。
+（1）：主线程处理事件超过5秒，app会提示程序无响应，所以主线线程处理的事件不能超过5秒。
+（2）：当启动页面Activity或者server,broadcast等是通过ui线程启动的，当需要使用耗时的操作时应当启用子线程来完成工作。
+（3）：子线程通过Handler放入Message quee完成工作的，当子线程要与ui线程通信时，需要用Handler类的方法handleMessage来完成与ui线程的通信。ui线程就是通过这个方法来获取Message quee当中子线程完成的工作通信的。
+（4）：sendEmptyMessage(int what)，发送只有what值的消息。sendMessage(Message message)，发送消息到Handler。hasMessage()，判断是否有what值的消息。post()，将Runnable添加到消息队列。
 
 XML解析：
 （1）：在安卓项目当中使用xml文件放在xml文件夹中。对于xml的解析工作是使用xmlPullParser来执行的（安卓项目是使用pull解析，pull解析本质就是SAX解析）。获取xml文件然后通过xmlPullParser来处理。代码案例：xmlPullParser parser =getResouces().getXml(R.xml.xml文件名)。同过parser对象来获知xml解析的情况。parser.getEventType();通过与xmlPullParser.START_DOCUMENTD等来判断解析到的情况。一般解析文件操作比较耗时，应该开启一个线程来执行。
 
 json解析：
-java中的json对象JsonObject json=new JsonObject();json.getString("键名");
+java中的json对象JsonObject json=new JsonObject("data");json.getString("键名");
 
 消息提示：
 Toast给用户一个短暂的提示，用户不需要进行响应。使用：使用Toast类上的静态方法，Toast.makeText(context,text,duration)；context上下文，text:提示的信息，duration提示的时长。
@@ -85,7 +88,7 @@ AlterDiaog对话消息提示：用户必须点击确定对话框才会消失。使用：AlterDialog ad=new
 
 适配器：
 负责为部件提供数据源，让数据能够显示在控件上，就是适配器的工作。adapater ListView控件显示adapter。ArrayAdapter(context,布局文件，控件id,data)。
-SimpleAdapter adapter=new SimpleAdapter(context,data,项布局，显示数据源的key,显示数据的id);
+SimpleAdapter adapter=new SimpleAdapter(context,data,项布局，显示数据源的key,显示数据的id);//data为list<map<string,string>>。显示的key为new String[]{key1,key2}。显示的数据控件的id为new int[]{R.id.tv1,R.id.tv2}。
 BaseAdapter类是一个接口，需要实现内置好的方法，对应的设置好适配的数据源。最后通过ListView.setAdapter(对BaseAdapter接口实现类的实例对象);
 当有数据的添加或删除是，使用方法通知适配器更改数据，就会自动反应给布局视图。adapter.notifyDatasetChanged();
 
@@ -154,7 +157,7 @@ SQLiteDatabase:
 
 
 contentProvider:内容提供程序
-（1）：contentProvider为应用程序提供应用程序之间的共享访问数据提供url，使用应用程序能够使用其他应用程序的数据提供便利。
+（1）：contentProvider为应用程序提供应用程序之间的共享访问数据提供uri，使用应用程序能够使用其他应用程序的数据提供便利。
 （2）：使用方法：通过上下文对象能直接获得contentResolver();contentProvider暴露出四个标准的api提供应用程序使用数据接口，分别为：insert,update,delete,query。
 （3）：Cursor类，指的是游标的意思，游标指向列表的项的方式获取数据，使用Cursor对象使用方法moveToFirst,moveToNext等方法移动到想要对应的项，Cursor对象方法getString(int类型的列)
 （4）：自定义contentProvider:定义类集成ContentProvider，实现必须的抽象方法。在manifest清单文件当中注册。
@@ -162,7 +165,7 @@ contentProvider:内容提供程序
 
 AsyncTask:
 （1）：提供一个特殊的子线程类，使用自定义类继承AsyncTask。实现必须的方法。在主线程调用时可以直接使用实例对象方法，自动调用子线程的工作。new MyTask().execute();
-（2）：在自定义类的实现方法中，doInBackground方法是再子线程上执行的且是必须实现的方法。
+（2）：在自定义类的实现方法中，doInBackground方法是在子线程上执行的且是必须实现的方法。
 
 动画：
 （1）：逐帧动画使用：在res资源文件下创建文件anim文件，创建一个xml的动画文件。使用的xml标签是animation-list，子标签为item。在animation-list 当中设置属性xmlns属性指定android属性提取的是哪个属性。在item中使用android:drawable指定动画资源，android:duration指定执行时间。真正使用动画动起来的是AnimationDrawable类的方法start()方法。AnimationDrawable ad=(AnimationDrawable)findViewById(R.id.)
