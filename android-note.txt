@@ -113,10 +113,18 @@ Fragment生命周期与交互管理：
 （1）：Fragment的使用：创建定义的fragment类并继承Fragment。必须重写OncreateView方法。并解析关联布局，并返回该布局。在要使用的主布局文件中使用Fragment控件的属性name进行调用使用。
 （2）：在fragment与调用的fragment控件Activity中的声明周期是一一相对应的。
 （3）：在被调用的主布局Activity当中可以设置fragment暴露出来，并加以修改。方法：通过findFragmentById查找对应的Fragment控件（或者方法findFragmentByTag），通过查找到的对象修改暴露出来的属性进行修改fragment。注意(在接受时应该使用FragmentManager 来接受，并通过getFragmentManager来获得FragmentManager对象。)
-（3）：动态的设置Fragment：1，获得FragmentManager fm=getFragmentManager();获取FrammentManager对象。2，FragmentTransaction ft=fm.beginTransaction()。3,ft.add(容器ID，Fragment对象，Fragment的tag)。4，ft.commit();
-（4）：当设备是横屏时，res文件夹下layout-land就是设置横屏的布局文件。（案例：手机屏幕竖屏时显示单个选项卡，当是横屏时显示选项卡以及内容）
+（3）：动态的设置Fragment：1，获得FragmentManager fm=getFragmentManager();获取FrammentManager对象。2，FragmentTransaction ft=fm.beginTransaction()。3,ft.add(容器ID，Fragment对象，Fragment的tag)。4，ft.commit();移除ft.remove(fragment);显示隐藏：ft.show(fragment),ft.hidden(fragment)。addToBackStack(null);这个方法是将fragment添加到回退的流程当中，模拟回退栈。
+（4）：当要给fragment动态传递传递参数时，fragment是不能有默认构造器的，这时需要使用类的静态方法构造出实例，并设置上参数。在声明周期时直接获取参数getArgument().getInt(num);进行初始化。
+设置初始化方法代码参考：public static 返回值为类:MyFragment  newInstance(num){
+           MyFragment myFragment =new MyFragment();
+           Bundle bundle =new Bundle();
+           bundle.putInt("num":(num));
+           myFragment.setArguments(bundle)
+           reutrn myFragment;
+}
+（5）：Fragment类当中有系统已经实现的子类Fragment,如：DialogFragment,listFragment。
+（6）：当设备是横屏时，res文件夹下layout-land就是设置横屏的布局文件。（案例：手机屏幕竖屏时显示单个选项卡，当是横屏时显示选项卡以及内容）
 在Fragment与Fragment进行操作，要反馈时，应当在activity当中操作，不应当在Fragment的Activity当中关联。方法：使用一个接口在主activity当中实现，让Fragment的activity当中事件方法传递事件源给接口方法，让主Activity实现。（注意：在Fragment的activity中应该设置一个方法来就收接口对象。）。
-
 
 
 自定义控件：
