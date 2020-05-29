@@ -123,8 +123,12 @@ Fragment生命周期与交互管理：
            reutrn myFragment;
 }
 （5）：Fragment类当中有系统已经实现的子类Fragment,如：DialogFragment,listFragment。
-（6）：当设备是横屏时，res文件夹下layout-land就是设置横屏的布局文件。（案例：手机屏幕竖屏时显示单个选项卡，当是横屏时显示选项卡以及内容）
+（6）：当设备是横屏时，res文件夹下layout-land就是设置横屏的布局文件。
 在Fragment与Fragment进行操作，要反馈时，应当在activity当中操作，不应当在Fragment的Activity当中关联。方法：使用一个接口在主activity当中实现，让Fragment的activity当中事件方法传递事件源给接口方法，让主Activity实现。（注意：在Fragment的activity中应该设置一个方法来就收接口对象。）。
+（7）：关于ViewPager的使用：viewPager可以使用View视图作为数据界面。实现数据填充需要实现pagerAdapter类的继承并实现方法。设置适配器setAdapter(实现pagerAdapter的实例对象)。
+       推荐使用fragment作为pagerView的填充数据界面。同样需要继承FragmentPagerAdapter类并实现方法。并设置适配器。
+       对于使用导航栏会滚动的情况下使用是PagerTabStrip组件。并对继承FragmentPgaerAdater类实现对应方法getPgaerTitle()。
+（8）：关于重复控件属性的使用可以在资源style当中定义。关于状态选择可以在drawable当中创建xml文件使用selector标签，子标签为item设置name属性的状态。actionBar,drawerLayout
 
 
 自定义控件：
@@ -142,7 +146,7 @@ service服务：
 系统服务：
 （1）：系统服务调用系统设备的服务，如：音量，屏幕亮度，网络，等。
 （2）：使用Manager管理，通过调用方法getSystemService（系统服务类型）;通过拿到系统服务对象，通过不同的方法设置设备服务属性。
-（3）：系统通知Notification。NotificationManager m;m.notify(id,notification);
+（3）：系统通知Notification。NotificationManager m;m.notify(id,notification);Notification notification =new Notification.Builder(this).set.... .build();//安卓4.0以上。
 
 broadcast（广播）：
 （1）：静态使用广播要继承BoradcastRecevicer类，监听onRecevice方法监听广播发出的事件监听。广播注册在manifest当中，recevier标签祖册。发送广播方法sendBroadcast(Intent);
