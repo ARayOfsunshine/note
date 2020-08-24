@@ -199,7 +199,10 @@ Intnet intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);intent.putExtra(MediaS
 启动摄像头：Camera camera=Camera.open();启动摄像头，需要判断。使用surface，通过camera.setPreviewDisplay(surfaceHolder);设置预览。camera.startPreview();camera.takePicture(null,null.new Camera.pictureCallback(){  public void onPictureTaken(bytep[] data,Camera camera){} })。
 
 网络编程常用类：
-（1）：获得网络信息：使用connectivityManager cm=getSystemInfo(Context.CONNECTIVITY_SERVICE);cm.getNetworkInfo()。
+（1）：获得网络信息：使用ConnectivityManager cm=getSystemInfo(Context.CONNECTIVITY_SERVICE);cm.getNetworkInfo()。
 （2）：获得网络连接。Url url=new Url(path); HttpURLConnection conn=url.openConnection();
+
+自定义控件：
+（1）：
 
 
