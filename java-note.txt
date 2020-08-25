@@ -86,9 +86,45 @@ java当中的数据类型分别为:
 （3）：自动装箱与自动拆箱：指基本数据类型来接受本包装类的变量就称为拆箱，把基本数据类型赋值给本包装类就叫做装箱。
 （4）：Date对象，在java.util当中，Date d=new Date()；时间的格式化对象：SimpleDateFormat s=SimpleDateFormat(yyyy年MM月dd日 HH时mm分ss秒 SSS毫秒 E星期数);s.format(d);s.parse()字符串日期解析为时间日期。
 	
-集合：
+Collection集合：
 （1）：Collection是所有集合的根类。java.util.Collection;Collection下有两个常用的子类List,Set。
 （2）：List下的常用子类有：ArrayList,linkedList,vector。Set下常用的子类有：HashSet,LinkedHashSet,TreeSet。
+（3）：List表示有序的可重复的元素的集合，而Set表示无序且没有重复的集合。
+（4）：Conllection的几个重要方法，add,addAll,remove,removeAll（并集）,isEmpty,contain,iterator（迭代器）。
+@List:
+（5）：ArrayList,LinkedList,Vector都是List接口的实现对象，它们的特点的相同点都是有序的，可重复的，不同点：
+（6）：ArrayList做为List的主要实现类，是线程不安全的，效率高。底层使用Object[]存储数据。jdk1.7在初始化时给的初始容量为10长度的数组，之后根据内容看是否需要扩容。jdk1.8在add时才给分配容量。 
+（7）：LinkedList底层使用双向链表存储。频繁的删除或者插入元素，效率要比ArrayList要。
+（8）：Vector做为List的古老实现类，jdk1.0就出现了，而ArrayList与LinkedList与接口List在JDK1.2才出现。Vector是线程安全，效率不高。底层使用Object[]存储数据。初始化容量是10的数组。
+（9）：List当中常用的方法:add(index,node),set(),remove(),subLis(),indeof(),indexLastOf()。
+@Set:
+（10）：Set的几个常用接口，HashSet,LinkedSet,TreeSet。存储无序，不可重复的数据。
+（11）：HashSet作为Set的主要实现类，线程不安全的；可以存储Null值。无序性不等于随机性，存储的数据在底层当中并非按数组的索引方式添加。不可重复在保证添加元素时按照equals方法判断时，不能返回true，即只能添加一个。底层存储以数组以及链表的方式存储，借用HashMap做存储。
+在添加元素时，表现的无序性与不可重复性表现在源码当中是当元素添加进入HashSet时，会计算出元素的哈希值，
+1,然后根据某种算法计算出添加的数组位置的索引所在的位置，如果没有元素则直接添加成功。
+2，如果有，根据哈希值判断是否相同，不相同则添加成功，
+3，如果相同，则根据所在索引的元素（或有多个元素则以链表方式连接）循环调用equals方法判断是否为false，false则添加进去。
+（12）：LinkedHashSet：做为HashSet的子类，遍历数据时可以按添加的顺序遍历。原因添加时还维护了两个引用，记录此元素的前后数据像链表一样。对于频繁遍历要比HashSet效率要高。
+（13）：TreeSet：可以按照添加的对象进行排序。添加的元素要求是相同的一个类的对象。排序的对象此时需要提供是可排序的，可实现Comparable接口，进行定义排序，TreeSet的不可重复也体现在Comparable的比较返回值当中，比较的返回值为0则添加的认为是相同，则添加为一个。
+
+Map集合：
+（1）：以键值对的形式存储数据，常使用的实现的子类有父类HashMap,子类LinkedHashMap,TreeMap,父类Hashtable,子类properties。
+（2）：HashMap是线程不安全的，效率高，可以存储null,HashMap的键是无序的，不可重复的，使用Set存储所有的key，key所在的类要重写Hashcode方法以及equals方法。HashMap的值是无序可重复的，使用Colleciton存储所有的value，value所有在的类要重写equlas方法。
+
+在jdk1.7之前底层的存储结构是以数组和链表的方式做存储的，在HashMap添加，先计算器key的哈希值，然后通过某种算法计算后，得到数组当中存放的位置，
+1，如果数组为空，则直接添加。
+2，数组不位空，则与数组对应的位置的一个或者多个的以链表的形式存在进行哈希值的比较。哈希值不同则直接添加。
+3，哈希值相同，则使用equals方法比较，返回值为false这直接添加，返回值为true则替换该key对应的value值。
+
+在jdk1.8则底层实现的不同：
+1，new HashMap();底层没有创建一个长度为16的数组，而是只有在添加的时候才创建。
+2，底层的数组名为原来的Entry[]改为Node[];
+3，1.8底层存储数据使用的是数组加链表和红黑树的结构存储数据，在数组谋一个索引位置上的元素以链表形式存在数据个>8且数组长度>64时，此索引位置上的所有数据改为使用红黑树存储。
+
+ HashMap还有一个子类LinkedHashMap它可以保证按添加的顺序遍历，在HashMap的结构上添加了一个指针，分别指向前一个元素与后一个元素，对于频繁遍历要比HashMap效率要高。
+（3）:TreeMap保证添加的key-value进行排序，
+（4）：Hashtable作为一个古老的实现类，最早作用于键值对的数据存储。线程安全的，效率不高。不可以存储null做为键或者值。
+
 
 map和文件类File:
 （1）：map集合与collection集合完全是不同的集合，map集合以键值对的方式进行数据存储，并提供了特定方法。
