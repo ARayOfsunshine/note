@@ -121,15 +121,27 @@ Map集合：
 2，底层的数组名为原来的Entry[]改为Node[];
 3，1.8底层存储数据使用的是数组加链表和红黑树的结构存储数据，在数组谋一个索引位置上的元素以链表形式存在数据个>8且数组长度>64时，此索引位置上的所有数据改为使用红黑树存储。
 
+（3）：Map接口常用的方法有：put(key,value),putAll(Map),remove(key),clear();get(key),containsKey(key),containsValue(value),size(),isEmpty(),equals(Object);keySet();values(),entrySet();
  HashMap还有一个子类LinkedHashMap它可以保证按添加的顺序遍历，在HashMap的结构上添加了一个指针，分别指向前一个元素与后一个元素，对于频繁遍历要比HashMap效率要高。
-（3）:TreeMap保证添加的key-value进行排序，
-（4）：Hashtable作为一个古老的实现类，最早作用于键值对的数据存储。线程安全的，效率不高。不可以存储null做为键或者值。
+（4）:TreeMap保证添加的key-value进行排序，根据key进行排序，key要是同一个类。
+（5）：Hashtable作为一个古老的实现类，最早作用于键值对的数据存储。线程安全的，效率不高。不可以存储null做为键或者值。Hashtable有一个子类Properties，常用与配置文件。new Properties().load(FileInputStream).getProperties("key");
 
+Collections：
+Colleciton和Collections的区别，Collection是单列数据集合的接口，而Collections是一个可以操作List,Set,Map的工具类。List,set是Collection的实现类。
+（1）:Collections作为操作List,Set,以及Map的常用工具类使用。工具类的方法一般为static的。
+（2）：常用的工具类有：reverse(List)反转,shuffle(List)随机排序,sort(List,Comparator)排序。swap(List，int,int)交替位置。max()，min()，frequency(List,value)出现的频率。
+copy(List,dest,souce)复制,dest的长度至少要与scouce一样长,dest=Arrays.addList(new Object[souce.size()])。synchronizedList(List)将List转为线程安全的,synchronizedMap(Map)
 
-map和文件类File:
-（1）：map集合与collection集合完全是不同的集合，map集合以键值对的方式进行数据存储，并提供了特定方法。
-（2）：java.io.File。File类对本地文件的具有操作作用，并提供了许多方法。
+泛型：
+（1）：在jdk1.5时出现的新特性，可一个集合类或者给接口在定义时就指定数据类型，也可以给自定义的类指定泛型。指定的数据类型必须是包装类。
+（2）：关于泛型的使用可以只给接受类型定义后面的可以省略，这是应该jdk1.7出的特性类型推测。
+（3）：泛型数据类型不同不能够相互赋值。泛型方法与泛型的类的方法没有任何关系，泛型方法是有泛型结构的，可以用来指不确定参数的类型。public <E> List<E> copyArrToList(E[] args)
+（4）：泛型的通配符“?”，用问号代表是公共类型的父类型就是多态的特性，从而解决不一致的问题。
 
+File：
+（1）：File作为IO输入输出的一个“端点”，为文件的写入或写出提供地点。
+（2）：File的常用方法有：File file=new File();file.getAbsolutePath();file.getPath(),file,getName(),file.length();file.lastModified();文件目录list();listFile();
+（3）：exisits(),createNewFile(),mkDir();mkDirs();
 
 IO流 字符流与字节流：
 （1）：所有字符流的超类：Reader,Writer。实现的子类：字符输入流FileReader，字符输出流FileWriter。高效缓冲字符输入流BufferedReader。高效缓冲字符输出流BufferedWriter。具体方法API文档。
